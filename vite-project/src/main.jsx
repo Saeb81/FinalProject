@@ -9,6 +9,8 @@ import Sign from './Log/SIgn/Sign.jsx'
 import './index.css'
 
 console.log("batman")
+console.log("batman")
+console.log("batman")
 const router = createBrowserRouter([
   {
 
