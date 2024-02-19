@@ -33,21 +33,22 @@ import { useEffect, useState } from "react";
 import { get } from '../../utils/httpClient'
 
 export default function Login() {
-
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [user,setUser] = useState('');
+    // const [username, setUsername] = useState('');
+    // const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
 
-    const loadUsername = async ()=>
+    const loadUser = async ()=>
     {
         const data = await get('/users')
-        setUsername  (data);
+        console.log(data)
+        setUser  (data);
     }
     useEffect (()  =>
     {
-        loadUsername()
+        loadUser()
     },[] )
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
