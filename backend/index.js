@@ -1,6 +1,5 @@
 const express = require('express');
-const postgres = require('postgres');
-require('dotenv').config();
+
 const app = express();
 
 app.use(express.json());
@@ -18,24 +17,19 @@ app.use(function (_, res, next) {
 const port = 3000;
 
 // app.js
+const postgres = require('postgres');
 
-PGHOST='ep-young-frog-a5mbncls.us-east-2.aws.neon.tech'
-PGDATABASE='final'
-PGUSER='saebsobhi81'
-PGPASSWORD='8ypxQKd3mtbq'
-ENDPOINT_ID='ep-young-frog-a5mbncls'
 
-let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
 
 const sql = postgres({
-  host: PGHOST,
-  database: PGDATABASE,
-  username: PGUSER,
-  password: PGPASSWORD,
+  host: 'ep-young-frog-a5mbncls.us-east-2.aws.neon.tech',
+  database: 'final',
+  username: 'saebsobhi81',
+  password: '8ypxQKd3mtbq',
   port: 5432,
   ssl: 'require',
   connection: {
-    options: `project=${ENDPOINT_ID}`,
+    options: `project=${'ep-young-frog-a5mbncls'}`,
   },
 });
 
