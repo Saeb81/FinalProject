@@ -1,5 +1,6 @@
 const express = require('express');
 const postgres = require('postgres');
+require('dotenv').config();
 const app = express();
 
 app.use(express.json());
@@ -19,20 +20,22 @@ const port = 3000;
 // app.js
 
 PGHOST='ep-young-frog-a5mbncls.us-east-2.aws.neon.tech'
-PGDATABASE='mid-DB'
-PGUSER= 'saebsobhi81'
-PGPASSWORD= '8ypxQKd3mtbq'
+PGDATABASE='final'
+PGUSER='saebsobhi81'
+PGPASSWORD='8ypxQKd3mtbq'
 ENDPOINT_ID='ep-young-frog-a5mbncls'
 
+let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+
 const sql = postgres({
-  host: 'ep-young-frog-a5mbncls.us-east-2.aws.neon.tech',
-  database: 'mid-DB',
-  username: 'saebsobhi81',
-  password: '8ypxQKd3mtbq',
+  host: PGHOST,
+  database: PGDATABASE,
+  username: PGUSER,
+  password: PGPASSWORD,
   port: 5432,
   ssl: 'require',
   connection: {
-    options: `project=${'ep-young-frog-a5mbncls'}`,
+    options: `project=${ENDPOINT_ID}`,
   },
 });
 
@@ -43,16 +46,17 @@ async function getPgVersion() {
 
 getPgVersion();
 
-app.get('/tweets', async (_, response) => {
-    const tweets = await sql`select * from tweets`;
-    response.send(tweets);
+
+app.get('/user', async (_, response) => {
+    const user = await sql`select * from user`;
+    response.send(user);
 });
 
-app.post('/tweets', async (request, response) => {
-    const { text } = request.body
+app.post('/user', async (request, response) => {
+    const { username } = request.body
     console.log(request.body);
-    const tweets = await sql`INSERT INTO tweets (text) VALUES (${text});`;
-    response.send(tweets);
+    const username1 = await sql`INSERT INTO user (username) VALUES (${user});`;
+    response.send(username1);
 });
 
 
