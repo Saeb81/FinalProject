@@ -47,16 +47,16 @@ async function getPgVersion() {
 getPgVersion();
 
 
-app.get('/user', async (_, response) => {
-    const user = await sql`select * from user`;
+app.get('/users', async (_, response) => {
+    const user = await sql`select * from users`;
     response.send(user);
 });
 
-app.post('/user', async (request, response) => {
-    const { username } = request.body
+app.post('/users', async (request, response) => {
+    const { user } = request.body
     console.log(request.body);
-    const username1 = await sql`INSERT INTO user (username) VALUES (${user});`;
-    response.send(username1);
+    const username = await sql`INSERT INTO users (username) VALUES (${user});`;
+    response.send(username);
 });
 
 

@@ -40,6 +40,16 @@ export default function Login() {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
+    const loadUsername = async ()=>
+    {
+        const data = await get('/users')
+        setUsername  (data);
+    }
+    useEffect (()  =>
+    {
+        loadUsername()
+    },[] )
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const linkStyle = {
         display: 'flex',
