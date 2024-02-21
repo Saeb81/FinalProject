@@ -144,7 +144,7 @@ export default function Login() {
                 <div>
                     <FormControl sx={{ m: 5, width: '22ch', alignItems: 'flex-end' }} variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input
+                        <Input onChange={setPassword}
                             id="standard-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             endAdornment={
