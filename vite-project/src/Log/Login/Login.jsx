@@ -43,7 +43,7 @@ export default function Login() {
     const loadUser = async ()=>
     {
         const data = await get('/users')
-        console.log(data)
+        console.log(data[0].username)
         setUser  (data);
     }
     useEffect (()  =>
@@ -83,14 +83,26 @@ export default function Login() {
         textAlign: 'center',
     }));
 
-    const handleLogin = (e) => {
-
-        e.preventDefault();
+    function handleLogin ()
+     {
+      
         
-       
     };
 
-
+    function hashing(s, tableSize) {
+        let hashVal = 0;
+        for (let i = 0; i < s.length; i++) {
+            hashVal += s.charCodeAt(i);
+        }
+        return hashVal % tableSize; 
+    }
+    
+  
+    const hashTableSize = 28;
+    const key = "admin";
+    const hashedKey = hashing(key, hashTableSize);
+    console.log(`Hashed key for '${key}' is: ${hashedKey}`);
+    
 
     return (
 
