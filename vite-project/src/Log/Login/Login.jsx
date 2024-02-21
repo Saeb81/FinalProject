@@ -33,23 +33,21 @@ import { useEffect, useState } from "react";
 import { get } from '../../utils/httpClient'
 
 export default function Login() {
-    const [user,setUser] = useState('');
+    const [user, setUser] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
 
-    const loadUser = async ()=>
-    {
+    const loadUser = async () => {
         const data = await get('/users')
         // console.log(data[0].username)
-        setUser  (data);
+        setUser(data);
     }
-    useEffect (()  =>
-    {
+    useEffect(() => {
         loadUser()
-    },[] )
+    }, [])
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const linkStyle = {
@@ -61,14 +59,22 @@ export default function Login() {
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertVisible1, setAlertVisible1] = useState(false);
 
+    const handleUserName = (event) => {
+        setUsername(event.target.value)
+    }
+
+    const handleLastName = () => {
+        setPassword(event.target.value)
+    }
+
     const handleForgotPasswordClick = () => {
         setAlertVisible(true);
     };
-    
+
     const handleForgotPasswordClick1 = () => {
         setAlertVisible(false);
         setAlertVisible1(true);
-        
+
         setTimeout(() => {
             setAlertVisible1(false);
         }, 3000);
@@ -83,46 +89,42 @@ export default function Login() {
         textAlign: 'center',
     }));
 
-   const handleLogin = async ()=>
-     {
+    const handleLogin = async () => {
+        
         const data = await get('/users')
         console.log(data[0].username)
-        console.log(username + '------------')
+        console.log(username)
         console.log(data[0].password)
         console.log(password)
         let i = 0;
-        while(i<data.length)
-        {
-            if(data[i].username == username&&data[i].password == password)
-            {
-                
+        while (i < data.length) {
+            if (data[i].username == username && data[i].password == password) {
+                console.log(data[0].username)
+                console.log(username)
+                console.log(data[0].password)
+                console.log(password)
                 break;
             }
             i++;
         }
 
-       
-    };
 
-    const submit = ()=>
-    {
-        handleLogin();
-    }
+    };
 
     function hashing(s, tableSize) {
         let hashVal = 0;
         for (let i = 0; i < s.length; i++) {
             hashVal += s.charCodeAt(i);
         }
-        return hashVal % tableSize; 
+        return hashVal % tableSize;
     }
-    
-  
+
+
     const hashTableSize = 28;
     const key = "admin";
     const hashedKey = hashing(key, hashTableSize);
     console.log(`Hashed key for '${key}' is: ${hashedKey}`);
-    
+
 
     return (
 
@@ -134,7 +136,7 @@ export default function Login() {
                 <div>
                     <Box sx={{ display: 'flex', m: 1, width: '25ch', alignItems: 'flex-end' }}>
                         <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                        <TextField id="input-with-sx" label="UserName" variant="standard" />
+                        <TextField id="input-with-sx" label="UserName" variant="standard" onChange={handleUserName} />
                     </Box>
                 </div>
 
@@ -162,7 +164,7 @@ export default function Login() {
                 <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
 
 
-                <Link to="/" ><div className='sign-btn '><Button onClick={submit()}>Login</Button></div></Link>
+                <Link to="/" ><div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div></Link>
             </Container>
 
 
@@ -173,7 +175,7 @@ export default function Login() {
                 top: '35%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                
+
             }}>
                 <DemoPaper variant="elevation"><TextField sx={{ width: '19ch' }}
                     // error
@@ -185,8 +187,8 @@ export default function Login() {
             </Container>
 
             <Stack sx={{ display: alertVisible1 ? 'flex' : 'none', width: '100%' }} spacing={2}>
-                            <Alert severity="success">check your mail box.</Alert>
-                        </Stack>
+                <Alert severity="success">check your mail box.</Alert>
+            </Stack>
         </div>
     );
 };
