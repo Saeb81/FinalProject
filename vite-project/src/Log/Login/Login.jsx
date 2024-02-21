@@ -83,11 +83,14 @@ export default function Login() {
         textAlign: 'center',
     }));
 
-   async function handleLogin ()
+   const handleLogin = async ()=>
      {
         const data = await get('/users')
         console.log(data[0].username)
-        const i = 0;
+        console.log(username + '------------')
+        console.log(data[0].password)
+        console.log(password)
+        let i = 0;
         while(i<data.length)
         {
             if(data[i].username == username&&data[i].password == password)
@@ -100,6 +103,11 @@ export default function Login() {
 
        
     };
+
+    const submit = ()=>
+    {
+        handleLogin();
+    }
 
     function hashing(s, tableSize) {
         let hashVal = 0;
@@ -154,7 +162,7 @@ export default function Login() {
                 <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
 
 
-                <Link to="/" ><div className='sign-btn '><Button onClick={handleLogin()}>Login</Button></div></Link>
+                <Link to="/" ><div className='sign-btn '><Button onClick={submit()}>Login</Button></div></Link>
             </Container>
 
 
