@@ -162,7 +162,7 @@ export default function Login() {
                 <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
 
 
-                <Link to="/" ><div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div></Link>
+                <Link to="../pages/Home.jsx" ><div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div></Link>
             </Container>
 
 

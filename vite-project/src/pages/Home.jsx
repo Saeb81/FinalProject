@@ -34,5 +34,5 @@ import { get } from '../utils/httpClient'
 
 export default function home()
 {
-return <div> Hello</div>
+ return <div> Hello</div>
 }
