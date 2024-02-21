@@ -34,8 +34,8 @@ import { get } from '../../utils/httpClient'
 
 export default function Login() {
     const [user,setUser] = useState('');
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -43,7 +43,7 @@ export default function Login() {
     const loadUser = async ()=>
     {
         const data = await get('/users')
-        console.log(data[0].username)
+        // console.log(data[0].username)
         setUser  (data);
     }
     useEffect (()  =>
@@ -83,10 +83,22 @@ export default function Login() {
         textAlign: 'center',
     }));
 
-    function handleLogin ()
+   async function handleLogin ()
      {
-      
-        
+        const data = await get('/users')
+        console.log(data[0].username)
+        const i = 0;
+        while(i<data.length)
+        {
+            if(data[i].username == username&&data[i].password == password)
+            {
+                
+                break;
+            }
+            i++;
+        }
+
+       
     };
 
     function hashing(s, tableSize) {
