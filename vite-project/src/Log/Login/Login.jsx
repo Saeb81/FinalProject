@@ -86,16 +86,8 @@ export default function Login() {
     const handleLogin = (e) => {
 
         e.preventDefault();
-        if (username === 'admin' && password === 'admin') {
-
-            setLoggedInUser(username);
-
-            alert('Login successful!');
-
-        } else {
-
-            alert('Invalid username or password');
-        }
+        
+       
     };
 
 
@@ -138,7 +130,7 @@ export default function Login() {
                 <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
 
 
-                <Link to="/" ><div className='sign-btn '><Button>Login</Button></div></Link>
+                <Link to="/" ><div className='sign-btn '><Button onClick={handleLogin()}>Login</Button></div></Link>
             </Container>
 
 
