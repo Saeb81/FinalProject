@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Login from './Log/Login/Login.jsx'
 import Sign from './Log/SIgn/Sign.jsx'
+import Home from './pages/Home.tsx'
 import './index.css'
 
 
@@ -18,6 +19,9 @@ const router = createBrowserRouter([
   {
     path: "/sign",
     element: <Sign/>,
+
+    path: "/home",
+    element: <Home/>,
   }
 
 ]);

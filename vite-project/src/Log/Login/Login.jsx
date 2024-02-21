@@ -1,7 +1,8 @@
 import './Login.css';
 import { Container, Typography } from '@mui/material';
 import * as React from 'react';
-
+import { ThemeProvider } from "@mui/system";
+import { createTheme } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
@@ -31,6 +32,8 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { get } from '../../utils/httpClient'
+
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [user, setUser] = useState('');
@@ -89,6 +92,9 @@ export default function Login() {
         textAlign: 'center',
     }));
 
+
+    const navigate = useNavigate()
+
     const handleLogin = async () => {
 
         const data = await get('/users')
@@ -102,6 +108,7 @@ export default function Login() {
                 console.log(username)
                 console.log(data[i].password)
                 console.log(password)
+                navigate('/Home')
             }
             i++;
         }
@@ -160,9 +167,7 @@ export default function Login() {
                 </div>
                 <Link to="/Sign" style={linkStyle}><div >New User?Sign in</div></Link>
                 <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
-
-
-                <Link to="../pages/Home.jsx" ><div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div></Link>
+                <div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div>
             </Container>
 
 
