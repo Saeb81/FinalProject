@@ -63,7 +63,7 @@ export default function Login() {
         setUsername(event.target.value)
     }
 
-    const handleLastName = () => {
+    const handlePassword = () => {
         setPassword(event.target.value)
     }
 
@@ -95,17 +95,13 @@ export default function Login() {
 
         let i = 0;
         while (i < data.length) {
-            console.log(data[i].username)
-            console.log(username)
-            console.log(data[i].password)
-            console.log(password)
+          
             if (data[i].username == username && data[i].password == password) {
 
                 console.log(data[i].username)
                 console.log(username)
                 console.log(data[i].password)
                 console.log(password)
-                break;
             }
             i++;
         }
@@ -146,7 +142,7 @@ export default function Login() {
                 <div>
                     <FormControl sx={{ m: 5, width: '22ch', alignItems: 'flex-end' }} variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input onChange={setPassword}
+                        <Input onChange={handlePassword}
                             id="standard-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             endAdornment={
