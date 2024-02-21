@@ -90,18 +90,20 @@ export default function Login() {
     }));
 
     const handleLogin = async () => {
-        
+
         const data = await get('/users')
-        console.log(data[0].username)
-        console.log(username)
-        console.log(data[0].password)
-        console.log(password)
+
         let i = 0;
         while (i < data.length) {
+            console.log(data[i].username)
+            console.log(username)
+            console.log(data[i].password)
+            console.log(password)
             if (data[i].username == username && data[i].password == password) {
-                console.log(data[0].username)
+
+                console.log(data[i].username)
                 console.log(username)
-                console.log(data[0].password)
+                console.log(data[i].password)
                 console.log(password)
                 break;
             }
