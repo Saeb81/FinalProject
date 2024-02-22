@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { get } from '../../utils/httpClient'
 
-export default function Login() {
+export default function Sign() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -54,58 +54,59 @@ export default function Login() {
 
 
     return (
+        <div className='page'>
+            <div className="body" >
 
-        <div className="body" >
+                <Container sx={{ height: 350, display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant='h3' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: 5 }} > Sign</Typography>
 
-            <Container sx={{ height: 350, display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='h3' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: 5 }} > Sign</Typography>
+                    <div>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', m: 1, width: '25ch', alignItems: 'flex-end' }}>
 
-                <div>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', m: 1, width: '25ch', alignItems: 'flex-end' }}>
-
-                        <Box display={'flex'}>
-                            <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                            <TextField id="input-with-sx" label="UserName" variant="standard" />
-                        </Box>
-                        <FormControl sx={{ m: 1, width: '22ch', marginRight: '-5px' }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                id="standard-adornment-password"
-                                type={showPassword ? 'text' : 'password'}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                        >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                            <FormControl sx={{ m: 1, width: '22ch' }} variant="standard">
-                                <TextField sx={{ width: '22ch' }}
-                                    // error
-                                    id="standard-error"
-                                    label="Age"
-                                    variant="standard"
+                            <Box display={'flex'}>
+                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <TextField id="input-with-sx" label="UserName" variant="standard" />
+                            </Box>
+                            <FormControl sx={{ m: 1, width: '22ch', marginRight: '-5px' }} variant="standard">
+                                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                <Input
+                                    id="standard-adornment-password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
                                 />
-                                <TextField sx={{ width: '22ch' }}
-                                    // error
-                                    id="standard-error"
-                                    label="Email"
-                                    variant="standard"
-                                />
+                                <FormControl sx={{ m: 1, width: '22ch' }} variant="standard">
+                                    <TextField sx={{ width: '22ch' }}
+                                        // error
+                                        id="standard-error"
+                                        label="Age"
+                                        variant="standard"
+                                    />
+                                    <TextField sx={{ width: '22ch' }}
+                                        // error
+                                        id="standard-error"
+                                        label="Email"
+                                        variant="standard"
+                                    />
+                                </FormControl>
                             </FormControl>
-                        </FormControl>
 
-                    </Box>
-                </div>
+                        </Box>
+                    </div>
 
-                <Link to="/" style={linkStyle}><div >Already Having an Account?Login</div></Link>
-                <Link to="/" ><div className='sign-btn '><Button>Sign in</Button></div></Link>
+                    <Link to="/" style={linkStyle}><div >Already Having an Account?Login</div></Link>
+                    <Link to="/" ><div className='sign-btn '><Button>Sign in</Button></div></Link>
 
-            </Container>
+                </Container>
+            </div>
         </div>
     );
 };
