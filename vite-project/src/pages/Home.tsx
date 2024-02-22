@@ -15,11 +15,15 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent} from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Container} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 
+import { Link } from 'react-router-dom';
+
+import { get } from '../utils/httpClient'
+import { post } from '../utils/httpClient'
 
 
 
@@ -90,10 +94,15 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleSignOut = () => 
+  {
+   
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
-    
+      
       anchorEl={anchorEl}
       anchorOrigin={{
           
@@ -109,8 +118,12 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Container sx={{display:'flex' ,flexDirection: 'column' ,padding : '15%'}}>
+      <Link to = "/Profile"><MenuItem  onClick={handleMenuClose}>Profile</MenuItem></Link>
+      <Link to = "/Setting"> <MenuItem onClick={handleMenuClose}>Setting</MenuItem></Link>
+      <Link to="/"> <MenuItem onClick={handleMenuClose}>SignOut</MenuItem> </Link>
+      </Container>
+
     </Menu>
   );
 
@@ -178,6 +191,7 @@ export default function PrimarySearchAppBar() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            // onClick={}
             sx={{ mr: 2 ,backgroundColor: 'darkslategray',}}
           >
             <MenuIcon />
@@ -227,7 +241,7 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
             <IconButton
               size="large"
               aria-label="show more"
