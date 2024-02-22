@@ -61,6 +61,7 @@ export default function Login() {
 
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertVisible1, setAlertVisible1] = useState(false);
+    const [alertVisible2, setAlertVisible2] = useState(false);
 
     const handleUserName = (event) => {
         setUsername(event.target.value)
@@ -83,6 +84,9 @@ export default function Login() {
         }, 3000);
     };
 
+    const failed = () => {
+        setAlertVisible2(false);
+    }
 
     const DemoPaper = styled(Paper)(({ theme }) => ({
         width: 200,
@@ -101,7 +105,7 @@ export default function Login() {
 
         let i = 0;
         while (i < data.length) {
-          
+
             if (data[i].username == username && data[i].password == password) {
 
                 console.log(data[i].username)
@@ -113,7 +117,7 @@ export default function Login() {
             i++;
         }
 
-
+        setAlertVisible2(true)
     };
 
     function hashing(s, tableSize) {
@@ -132,67 +136,97 @@ export default function Login() {
 
 
     return (
+        <div className='page'>
+            <div className="body" >
 
-        <div className="body" >
+                <Container sx={{ height: 350, display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant='h3' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: 5 }} > Login</Typography>
 
-            <Container sx={{ height: 350, display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='h3' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: 5 }} > Login</Typography>
-
-                <div>
-                    <Box sx={{ display: 'flex', m: 1, width: '25ch', alignItems: 'flex-end' }}>
-                        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                        <TextField id="input-with-sx" label="UserName" variant="standard" onChange={handleUserName} />
-                    </Box>
-                </div>
-
-
-                <div>
-                    <FormControl sx={{ m: 5, width: '22ch', alignItems: 'flex-end' }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input onChange={handlePassword}
-                            id="standard-adornment-password"
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                    >
-                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                </div>
-                <Link to="/Sign" style={linkStyle}><div >New User?Sign in</div></Link>
-                <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
-                <div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div>
-            </Container>
+                    <div>
+                        <Box sx={{ display: 'flex', m: 1, width: '25ch', alignItems: 'flex-end' }}>
+                            <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                            <TextField id="input-with-sx" label="UserName" variant="standard" onChange={handleUserName} />
+                        </Box>
+                    </div>
 
 
-            <Container sx={{
-                display: alertVisible ? 'flex' : 'none',
-                justifyContent: 'center',
-                position: 'absolute',
-                top: '35%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
+                    <div>
+                        <FormControl sx={{ m: 5, width: '22ch', alignItems: 'flex-end' }} variant="standard">
+                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                            <Input onChange={handlePassword}
+                                id="standard-adornment-password"
+                                type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                        >
+                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                    </div>
+                    <Link to="/Sign" style={linkStyle}><div >New User?Sign in</div></Link>
+                    <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
+                    <div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div>
+                </Container>
 
-            }}>
-                <DemoPaper variant="elevation"><TextField sx={{ width: '19ch' }}
-                    // error
-                    id="standard-error"
-                    label="Email"
-                    variant="standard"
-                />
-                    <Button sx={{ m: 3 }} onClick={handleForgotPasswordClick1} >Send</Button></DemoPaper>
-            </Container>
 
-            <Stack sx={{ display: alertVisible1 ? 'flex' : 'none', width: '100%' }} spacing={2}>
-                <Alert severity="success">check your mail box.</Alert>
-            </Stack>
+                <Container sx={{
+                    display: alertVisible ? 'flex' : 'none',
+                    justifyContent: 'center',
+                    position: 'absolute',
+                    top: '35%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+
+                }}>
+                    <DemoPaper variant="elevation"><TextField sx={{ width: '19ch' }}
+                        // error
+                        id="standard-error"
+                        label="Email"
+                        variant="standard"
+                    />
+                        <Button sx={{ m: 3 }} onClick={handleForgotPasswordClick1} >Send</Button></DemoPaper>
+                </Container>
+
+                <Container sx={{
+                    display: alertVisible2 ? 'flex' : 'none',
+                    justifyContent: 'center',
+                    borderRadius: '5px',
+                    position: 'absolute',
+                    top: '35%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+
+                }}>
+                    <DemoPaper variant="elevation">
+                        <Container sx={{
+
+                            justifyContent: 'center',
+                            borderRadius: '5px',
+                            border: 'solid beige',
+                            backgroundColor: 'deepskyblue'
+                        }}>
+
+                            <InputLabel htmlFor="standard-adornment-password">Wrong UserName</InputLabel>
+                            <InputLabel htmlFor="standard-adornment-password">Or Password</InputLabel>
+                        </Container>
+
+                        <Button sx={{ m: 3 }} onClick={failed} >OK</Button></DemoPaper>
+                </Container>
+
+                <Stack sx={{ display: alertVisible1 ? 'flex' : 'none', width: '100%' }} spacing={2}>
+                    <Alert severity="success">check your mail box.</Alert>
+                </Stack>
+
+            </div>
         </div>
+
+
     );
 };
 
