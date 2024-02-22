@@ -106,6 +106,10 @@ export default function Login() {
         let i = 0;
         while (i < data.length) {
 
+            console.log(data[i].username)
+            console.log(username)
+            console.log(data[i].password)
+            console.log(password)
             if (data[i].username == username && data[i].password == password) {
 
                 console.log(data[i].username)
@@ -179,7 +183,7 @@ export default function Login() {
                     display: alertVisible ? 'flex' : 'none',
                     justifyContent: 'center',
                     position: 'absolute',
-                    top: '35%',
+                    top: '85%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
 
@@ -198,7 +202,7 @@ export default function Login() {
                     justifyContent: 'center',
                     borderRadius: '5px',
                     position: 'absolute',
-                    top: '35%',
+                    top: '85%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
 

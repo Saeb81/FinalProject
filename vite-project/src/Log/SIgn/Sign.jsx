@@ -62,7 +62,7 @@ export default function Sign() {
 
 
     const failed = () => {
-        setAlertVisible2(false);
+        setAlertVisible(false);
     }
 
 
@@ -94,18 +94,17 @@ export default function Sign() {
     const navigate = useNavigate()
 
     const handleSign = async () => {
+        let i = 0;
+        if (username === "" || password === "" || email === "" || age === "") {
+            console.log(username)
+            setAlertVisible(true)
+          return;
+        }
 
         const data = await get('/users')
 
-        let i = 0;
-        console.log(username)
-        if (username === "" || password === "" || email === "" || age === "") {
-            setAlertVisible(true)
-        }
         while (i < data.length) {
-
-            if (data[i].username == username) {
-
+            if (data[i].username === username) {
                 console.log(data[i].username)
                 console.log(username)
                 console.log(data[i].password)
@@ -151,11 +150,11 @@ export default function Sign() {
 
                             <Box display={'flex'}>
                                 <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                                <TextField id="input-with-sx" label="UserName" variant="standard" />
+                                <TextField id="input-with-sx" label="UserName" variant="standard" onChange={handleUserName} />
                             </Box>
                             <FormControl sx={{ m: 1, width: '22ch', marginRight: '-5px' }} variant="standard">
                                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                                <Input
+                                <Input onChange={handlePassword}
                                     id="standard-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
@@ -170,13 +169,13 @@ export default function Sign() {
                                     }
                                 />
                                 <FormControl sx={{ m: 1, width: '22ch' }} variant="standard">
-                                    <TextField sx={{ width: '22ch' }}
+                                    <TextField onChange={handleAge} sx={{ width: '22ch' }}
                                         // error
                                         id="standard-error"
                                         label="Age"
                                         variant="standard"
                                     />
-                                    <TextField sx={{ width: '22ch' }}
+                                    <TextField onChange={handleEmail} sx={{ width: '22ch' }}
                                         // error
                                         id="standard-error"
                                         label="Email"
@@ -190,7 +189,7 @@ export default function Sign() {
                             justifyContent: 'center',
                             borderRadius: '5px',
                             position: 'absolute',
-                            top: '35%',
+                            top: '85%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
 
@@ -204,8 +203,8 @@ export default function Sign() {
                                     backgroundColor: 'deepskyblue'
                                 }}>
 
-                                    <InputLabel htmlFor="standard-adornment-password">Wrong UserName</InputLabel>
-                                    <InputLabel htmlFor="standard-adornment-password">Or Password</InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password">Please fill</InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password">all the filds</InputLabel>
                                 </Container>
 
                                 <Button sx={{ m: 3 }} onClick={failed} >OK</Button></DemoPaper>
