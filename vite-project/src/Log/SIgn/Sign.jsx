@@ -1,7 +1,8 @@
 import './Sign.css';
 import { Container, Typography } from '@mui/material';
 import * as React from 'react';
-
+import { ThemeProvider } from "@mui/system";
+import { createTheme } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
@@ -16,14 +17,34 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Box from '@mui/material/Box';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
+
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
+
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { get } from '../../utils/httpClient'
+import { post } from '../../utils/httpClient'
+
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Sign() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [age, setAge] = useState('');
+
+
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -35,22 +56,87 @@ export default function Sign() {
 
     };
 
+    const [alertVisible, setAlertVisible] = useState(false);
+    const [alertVisible1, setAlertVisible1] = useState(false);
+    const [alertVisible2, setAlertVisible2] = useState(false);
 
-    const handleLogin = (e) => {
 
-        e.preventDefault();
-        if (username === 'admin' && password === 'admin') {
+    const failed = () => {
+        setAlertVisible2(false);
+    }
 
-            setLoggedInUser(username);
 
-            alert('Login successful!');
+    const handleUserName = (event) => {
+        setUsername(event.target.value)
+    }
 
-        } else {
+    const handlePassword = () => {
+        setPassword(event.target.value)
+    }
 
-            alert('Invalid username or password');
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const handleAge = () => {
+        setAge(event.target.value)
+    }
+
+    const DemoPaper = styled(Paper)(({ theme }) => ({
+        width: 200,
+        height: 200,
+        padding: theme.spacing(2),
+        ...theme.typography.body2,
+        textAlign: 'center',
+    }));
+
+    const navigate = useNavigate()
+
+    const handleSign = async () => {
+
+        const data = await get('/users')
+
+        let i = 0;
+        console.log(username)
+        if (username === "" || password === "" || email === "" || age === "") {
+            setAlertVisible(true)
         }
+        while (i < data.length) {
+
+            if (data[i].username == username) {
+
+                console.log(data[i].username)
+                console.log(username)
+                console.log(data[i].password)
+                console.log(password)
+                break;
+
+            }
+
+            i++;
+        }
+        if (i >= data.length) {
+
+            const id = hashing(username, hashTableSize)
+            post('/users', { id, username, email, password, age })
+            navigate('/Home')
+        }
+
+
     };
 
+
+    function hashing(s, tableSize) {
+        let hashVal = 0;
+        for (let i = 0; i < s.length; i++) {
+            hashVal += s.charCodeAt(i);
+        }
+        return hashVal % tableSize;
+    }
+
+
+    const hashTableSize = 28;
 
 
     return (
@@ -98,12 +184,36 @@ export default function Sign() {
                                     />
                                 </FormControl>
                             </FormControl>
-
                         </Box>
+                        <Container sx={{
+                            display: alertVisible ? 'flex' : 'none',
+                            justifyContent: 'center',
+                            borderRadius: '5px',
+                            position: 'absolute',
+                            top: '35%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+
+                        }}>
+                            <DemoPaper variant="elevation">
+                                <Container sx={{
+
+                                    justifyContent: 'center',
+                                    borderRadius: '5px',
+                                    border: 'solid beige',
+                                    backgroundColor: 'deepskyblue'
+                                }}>
+
+                                    <InputLabel htmlFor="standard-adornment-password">Wrong UserName</InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password">Or Password</InputLabel>
+                                </Container>
+
+                                <Button sx={{ m: 3 }} onClick={failed} >OK</Button></DemoPaper>
+                        </Container>
                     </div>
 
                     <Link to="/" style={linkStyle}><div >Already Having an Account?Login</div></Link>
-                    <Link to="/" ><div className='sign-btn '><Button>Sign in</Button></div></Link>
+                    <div className='sign-btn ' onClick={handleSign}><Button>Sign in</Button></div>
 
                 </Container>
             </div>

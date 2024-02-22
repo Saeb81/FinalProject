@@ -47,10 +47,13 @@ app.get('/users', async (_, response) => {
 });
 
 app.post('/users', async (request, response) => {
-    const { user } = request.body
+  const { username, email, age, password, id } = request.body;
     console.log(request.body);
-    const username = await sql`INSERT INTO users (username) VALUES (${user});`;
-    response.send(username);
+    const user = await sql`
+        INSERT INTO users (user_id, username, email, password, age)
+        VALUES (${id}, ${username}, ${email}, ${password}, ${age})
+        RETURNING user_id, username, email, age;`;
+    response.send(user);
 });
 
 
