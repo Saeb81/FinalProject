@@ -120,7 +120,7 @@ export default function PrimarySearchAppBar() {
     >
       <Container sx={{display:'flex' ,flexDirection: 'column' ,padding : '15%'}}>
       <Link to = "/Profile"><MenuItem  onClick={handleMenuClose}>Profile</MenuItem></Link>
-      <Link to = "/Setting"> <MenuItem onClick={handleMenuClose}>Setting</MenuItem></Link>
+   
       <Link to="/"> <MenuItem onClick={handleMenuClose}>SignOut</MenuItem> </Link>
       </Container>
 
@@ -186,7 +186,7 @@ export default function PrimarySearchAppBar() {
         {/* 165 */}
          {/* 166 */}
         <Toolbar sx={{backgroundColor: 'black', }}>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -195,15 +195,28 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 ,backgroundColor: 'darkslategray',}}
           >
             <MenuIcon />
-          </IconButton>
-          <Typography
+          </IconButton> */}
+ 
+        <Container>
+        <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Mave Shop
+             <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>MaveShop</Typography></Link>
           </Typography>
+       
+        </Container>
+          
+        <Container sx={{maxWidth: '300px', display : 'flex',flexDirection : 'row',justifyContent : 'space-around'}}>
+        
+          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>Store</Typography></Link>
+          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>Library</Typography></Link>
+          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>AddGame</Typography></Link>
+
+          </Container>
+
           <Search sx={{backgroundColor: 'darkslategray'}}>
             <SearchIconWrapper>
               <SearchIcon />
@@ -213,6 +226,7 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex', } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">

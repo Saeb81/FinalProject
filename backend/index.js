@@ -56,5 +56,12 @@ app.post('/users', async (request, response) => {
     response.send(user);
 });
 
+app.get('/game',async(_,response) => 
+{
+  const game = await sql `select * from game`;
+  response.send(game);
+}
+
+)
 
 app.listen(port, () => console.log(`My App listening at http://localhost:${port}`));

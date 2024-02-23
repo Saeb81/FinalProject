@@ -1,0 +1,8 @@
+.setting
+{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: lavender;
+    padding: 10%;
+}
