@@ -211,7 +211,7 @@ export default function Sign() {
                         </Container>
                     </div>
 
-                    <Link to="/" style={linkStyle}><div >Already Having an Account?Login</div></Link>
+                    <Link to="/" style={linkStyle}><div className='in'>Already Having an Account?Login</div></Link>
                     <div className='sign-btn ' onClick={handleSign}><Button>Sign in</Button></div>
 
                 </Container>

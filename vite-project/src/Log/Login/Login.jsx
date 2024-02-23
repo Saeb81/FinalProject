@@ -173,7 +173,7 @@ export default function Login() {
                             />
                         </FormControl>
                     </div>
-                    <Link to="/Sign" style={linkStyle}><div >New User?Sign in</div></Link>
+                    <Link to="/Sign" style={linkStyle}><div className='in'>New User?Sign in</div></Link>
                     <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
                     <div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div>
                 </Container>
