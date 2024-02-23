@@ -28,6 +28,18 @@ import { post } from '../utils/httpClient'
 const data = await get('/game')
 const base64 = 	data[2].image_base64
 console.log(base64);
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+  const loadGame = (event) => {
+    setTitle(event.target.value)
+}
+  
+
+
+
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -182,22 +194,10 @@ export default function PrimarySearchAppBar() {
 
   return (
   <div className='home'>
-      <Box sx={{ flexGrow: 1 ,}}>
+
+<Box sx={{ flexGrow: 1 ,}}>
       <AppBar position="static">
-        {/* 165 */}
-         {/* 166 */}
-        <Toolbar sx={{backgroundColor: 'black', }}>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            // onClick={}
-            sx={{ mr: 2 ,backgroundColor: 'darkslategray',}}
-          >
-            <MenuIcon />
-          </IconButton> */}
- 
+        <Toolbar sx={{display: 'flex', backgroundColor: 'black', }}>
         <Container>
         <Typography
             variant="h6"
@@ -274,8 +274,9 @@ export default function PrimarySearchAppBar() {
       {renderMenu}
     </Box>
 
+
    <FormControl sx={{display: 'flex',justifyContent: 'center',alignItems: 'center',height: 400,marginTop: 5}}>
-   <Card sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center', width: 450,height:1000,
+   <Card sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center', width: 310,height:1000,
    border: 'groove',backgroundColor:'inherit' }}>
       <CardMedia
         sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center',padding: '5%' , height: 200 ,width:300}}  
