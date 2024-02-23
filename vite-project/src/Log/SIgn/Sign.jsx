@@ -189,7 +189,7 @@ export default function Sign() {
                             justifyContent: 'center',
                             borderRadius: '5px',
                             position: 'absolute',
-                            top: '85%',
+                            top: '55%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
 
@@ -200,7 +200,7 @@ export default function Sign() {
                                     justifyContent: 'center',
                                     borderRadius: '5px',
                                     border: 'solid beige',
-                                    backgroundColor: 'deepskyblue'
+                                 
                                 }}>
 
                                     <InputLabel htmlFor="standard-adornment-password">Please fill</InputLabel>

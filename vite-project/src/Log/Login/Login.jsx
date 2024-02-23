@@ -183,7 +183,7 @@ export default function Login() {
                     display: alertVisible ? 'flex' : 'none',
                     justifyContent: 'center',
                     position: 'absolute',
-                    top: '85%',
+                    top: '55%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
 
@@ -202,18 +202,19 @@ export default function Login() {
                     justifyContent: 'center',
                     borderRadius: '5px',
                     position: 'absolute',
-                    top: '85%',
+                    top: '55%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
+                 
 
                 }}>
-                    <DemoPaper variant="elevation">
+                    <DemoPaper  variant="elevation">
                         <Container sx={{
 
                             justifyContent: 'center',
                             borderRadius: '5px',
                             border: 'solid beige',
-                            backgroundColor: 'deepskyblue'
+                          
                         }}>
 
                             <InputLabel htmlFor="standard-adornment-password">Wrong UserName</InputLabel>
@@ -224,7 +225,7 @@ export default function Login() {
                 </Container>
 
                 <Stack sx={{ display: alertVisible1 ? 'flex' : 'none', width: '100%' }} spacing={2}>
-                    <Alert severity="success">check your mail box.</Alert>
+                    <Alert sx={{backgroundColor : 'inherit',color: 'white',border : 'solid black'}} severity="success">check your mail box.</Alert>
                 </Stack>
 
             </div>
