@@ -15,18 +15,19 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent, Container} from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Container, FormControl} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-
+import './Home.css';
 import { Link } from 'react-router-dom';
 
 import { get } from '../utils/httpClient'
 import { post } from '../utils/httpClient'
 
-
-
+const data = await get('/game')
+const base64 = 	data[2].image_base64
+console.log(base64);
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -180,7 +181,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-  <div>
+  <div className='home'>
       <Box sx={{ flexGrow: 1 ,}}>
       <AppBar position="static">
         {/* 165 */}
@@ -273,32 +274,28 @@ export default function PrimarySearchAppBar() {
       {renderMenu}
     </Box>
 
-    <Card sx={{ maxWidth: 345 }}>
+   <FormControl sx={{display: 'flex',justifyContent: 'center',alignItems: 'center',height: 400,marginTop: 5}}>
+   <Card sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center', width: 450,height:1000,
+   border: 'groove',backgroundColor:'inherit' }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image=""
+        sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center',padding: '5%' , height: 200 ,width:300}}  
+        image={base64}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          GTA VI
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+         the new Rockstar Game
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Buy</Button>
+        <Button size="small">Read More</Button>
       </CardActions>
     </Card>
-
-
+   </FormControl>
   </div>
-
-
-
-
   );
 }
