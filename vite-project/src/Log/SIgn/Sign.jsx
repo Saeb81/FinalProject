@@ -44,6 +44,8 @@ export default function Sign() {
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
 
+    let text = '';
+    let text1 = '';
 
     const [loggedInUser, setLoggedInUser] = useState(null);
 
@@ -97,8 +99,12 @@ export default function Sign() {
         let i = 0;
         if (username === "" || password === "" || email === "" || age === "") {
             console.log(username)
+            text = 'Please Fill'
+            text1 = 'All The Fields'
+            console.log(text);
+
             setAlertVisible(true)
-          return;
+            return;
         }
 
         const data = await get('/users')
@@ -109,6 +115,13 @@ export default function Sign() {
                 console.log(username)
                 console.log(data[i].password)
                 console.log(password)
+                console.log(text);
+                text = 'This Username'
+                text1 = 'Already Exist'
+                console.log("text:", text);
+                console.log("text1:", text1);
+
+                setAlertVisible(true)
                 break;
 
             }
@@ -189,7 +202,7 @@ export default function Sign() {
                             justifyContent: 'center',
                             borderRadius: '5px',
                             position: 'absolute',
-                            top: '55%',
+                            top: '85%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
 
@@ -200,11 +213,16 @@ export default function Sign() {
                                     justifyContent: 'center',
                                     borderRadius: '5px',
                                     border: 'solid beige',
-                                 
+
                                 }}>
 
-                                    <InputLabel htmlFor="standard-adornment-password">Please fill</InputLabel>
-                                    <InputLabel htmlFor="standard-adornment-password">all the filds</InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password">
+                                        {'text: ' + text}
+                                    </InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password">
+                                        {'text1: ' + text1}
+                                    </InputLabel>
+
                                 </Container>
 
                                 <Button sx={{ m: 3 }} onClick={failed} >OK</Button></DemoPaper>

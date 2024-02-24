@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent, Container, FormControl} from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Container, FormControl } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -26,18 +26,7 @@ import { get } from '../utils/httpClient'
 import { post } from '../utils/httpClient'
 
 const data = await get('/game')
-const base64 = 	data[2].image_base64
-console.log(base64);
-
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-
-  const loadGame = (event) => {
-    setTitle(event.target.value)
-}
-  
-
-
+const base64 = data[2].image_base64
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -53,7 +42,7 @@ const Search = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
     width: 'auto',
-   
+
   },
 }));
 
@@ -82,6 +71,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -89,6 +80,14 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  const loadGame = (event) => {
+    setTitle(event.target.value)
+  }
+
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -107,18 +106,15 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleSignOut = () => 
-  {
-   
-  }
+
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
-      
+
       anchorEl={anchorEl}
       anchorOrigin={{
-          
+
         vertical: 'top',
         horizontal: 'right',
       }}
@@ -131,10 +127,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Container sx={{display:'flex' ,flexDirection: 'column' ,padding : '15%'}}>
-      <Link to = "/Profile"><MenuItem  onClick={handleMenuClose}>Profile</MenuItem></Link>
-   
-      <Link to="/"> <MenuItem onClick={handleMenuClose}>SignOut</MenuItem> </Link>
+      <Container sx={{ display: 'flex', flexDirection: 'column', padding: '15%' }}>
+        <Link to="/Profile"><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+
+        <Link to="/"> <MenuItem onClick={handleMenuClose}>SignOut</MenuItem> </Link>
       </Container>
 
     </Menu>
@@ -193,110 +189,115 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-  <div className='home'>
-
-<Box sx={{ flexGrow: 1 ,}}>
-      <AppBar position="static">
-        <Toolbar sx={{display: 'flex', backgroundColor: 'black', }}>
-        <Container>
-        <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-             <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>MaveShop</Typography></Link>
-          </Typography>
-       
-        </Container>
-          
-        <Container sx={{maxWidth: '300px', display : 'flex',flexDirection : 'row',justifyContent : 'space-around'}}>
-        
-          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>Store</Typography></Link>
-          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>Library</Typography></Link>
-          <Link to = "/Library"><Typography sx={{display:'flex', color :'white'}} onClick={handleMenuClose}>AddGame</Typography></Link>
-
-          </Container>
-
-          <Search sx={{backgroundColor: 'darkslategray'}}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex', } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+    <div className='home'>
 
 
-   <FormControl sx={{display: 'flex',justifyContent: 'center',alignItems: 'center',height: 400,marginTop: 5}}>
-   <Card sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center', width: 310,height:1000,
-   border: 'groove',backgroundColor:'inherit' }}>
-      <CardMedia
-        sx={{display:'flex',flexDirection: 'column', justifyContent: 'center',alignItems:'center',padding: '5%' , height: 200 ,width:300}}  
-        image={base64}
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          GTA VI
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-         the new Rockstar Game
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Buy</Button>
-        <Button size="small">Read More</Button>
-      </CardActions>
-    </Card>
-   </FormControl>
-  </div>
+
+      <Box sx={{ flexGrow: 1, }}>
+        <AppBar position="static">
+          <Toolbar sx={{ display: 'flex', backgroundColor: 'black', }}>
+            <Container>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ display: { xs: 'none', sm: 'block' } }}
+              >
+                <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>MaveShop</Typography></Link>
+              </Typography>
+
+            </Container>
+
+            <Container sx={{ maxWidth: '300px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+
+              <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Store</Typography></Link>
+              <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Library</Typography></Link>
+              <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>AddGame</Typography></Link>
+
+            </Container>
+
+            <Search sx={{ backgroundColor: 'darkslategray' }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex', } }}>
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+
+
+
+      <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
+        <Card sx={{
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
+          border: 'groove', backgroundColor: 'inherit'
+        }}>
+          <CardMedia
+            sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
+            image={base64}
+            title="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              GTA VI
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              the new Rockstar Game
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Buy</Button>
+            <Button size="small">Read More</Button>
+          </CardActions>
+        </Card>
+      </FormControl>
+    </div>
   );
 }

@@ -45,7 +45,7 @@ export default function Login() {
 
     const loadUser = async () => {
         const data = await get('/users')
-        // console.log(data[0].username)
+        console.log(data[0].username)
         setUser(data);
     }
     useEffect(() => {
