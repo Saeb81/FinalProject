@@ -43,12 +43,13 @@ export default function Sign() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
+    const [error, setError] = useState(false);
 
     let text1 = "Please Fill"
     let text2 = "All The Fields"
     let text3 = "Already Exist"
     let text4 = "This Username"
-    
+
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -57,7 +58,7 @@ export default function Sign() {
     const linkStyle = {
         display: 'flex',
         alignItems: 'center',
-        
+
     };
 
     const [alertVisible, setAlertVisible] = useState(false);
@@ -76,7 +77,7 @@ export default function Sign() {
         setUsername(event.target.value)
     }
 
-    const handlePassword = () => {
+    const handlePassword = (event) => {
         setPassword(event.target.value)
     }
 
@@ -85,8 +86,25 @@ export default function Sign() {
         setEmail(event.target.value)
     }
 
-    const handleAge = () => {
-        setAge(event.target.value)
+    const handleAge = (e) => {
+        const inputAge = e.target.value;
+    const regex = /^[0-9]+$/;
+    console.log("Current input value:", inputAge);
+    
+    if (!regex.test(inputAge)) {
+        console.log("Invalid input detected.");
+        setError(true);
+    } else {
+        const age = parseInt(inputAge, 10);
+        if (age < 5 || age > 99) {
+            console.log("Age must be between 5 and 99.");
+            setError(true);
+        } else {
+            console.log("Valid input detected.");
+            setError(false);
+            setAge(inputAge);
+        }
+    }
     }
 
     const DemoPaper = styled(Paper)(({ theme }) => ({
@@ -101,6 +119,7 @@ export default function Sign() {
 
     const handleSign = async () => {
         let i = 0;
+        console.log("----------------------------");
         if (username === "" || password === "" || email === "" || age === "") {
             console.log(username)
             setAlertVisible(true)
@@ -111,6 +130,7 @@ export default function Sign() {
         const data = await get('/users')
 
         while (i < data.length) {
+            console.log("batman")
             if (data[i].username === username) {
                 console.log(data[i].username)
                 console.log(username)
@@ -124,10 +144,11 @@ export default function Sign() {
 
             i++;
         }
-        if (i >= data.length) {
-
-          
-            post('/users', {username, email, password, age })
+        console.log(i)
+        console.log(error)
+        if (!error && i >= data.length) {
+            const user_id = data.length + 1;
+            post('/users', { username, email, password, age,user_id})
             navigate('/Home')
         }
 
@@ -173,6 +194,8 @@ export default function Sign() {
                                         id="standard-error"
                                         label="Age"
                                         variant="standard"
+                                        error={error}
+                                        helperText={error ? 'Age must be a number between 5 and 99' : ''}
                                     />
                                     <TextField onChange={handleEmail} sx={{ width: '22ch' }}
                                         // error
@@ -197,27 +220,35 @@ export default function Sign() {
                                 <Container sx={{
 
                                     justifyContent: 'center',
-                                    alignItems : 'center',
+                                    alignItems: 'center',
                                     borderRadius: '5px',
                                     border: 'solid beige',
 
                                 }}>
 
-                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible1 ? 'flex' : 'none',  justifyContent: 'center',
-                                    alignItems : 'center'}}>
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{
+                                        display: alertVisible1 ? 'flex' : 'none', justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
                                         {text1}
                                     </InputLabel>
-                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible1 ? 'flex' : 'none', justifyContent: 'center',
-                                    alignItems : 'center'}}>
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{
+                                        display: alertVisible1 ? 'flex' : 'none', justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
                                         {text2}
                                     </InputLabel>
 
-                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
-                                    alignItems : 'center'}}>
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{
+                                        display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
                                         {text3}
                                     </InputLabel>
-                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
-                                    alignItems : 'center',}}>
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{
+                                        display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}>
                                         {text4}
                                     </InputLabel>
 

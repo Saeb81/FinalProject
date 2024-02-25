@@ -47,14 +47,22 @@ app.get('/users', async (_, response) => {
 });
 
 app.post('/users', async (request, response) => {
-  const { username, email, age, password} = request.body;
-    console.log(request.body);
-    const user = await sql`
-        INSERT INTO users (user_id, username, email, password, age,admin)
-        VALUES ( ${username}, ${email}, ${password}, ${age},false)
-        RETURNING user_id, username, email, age;`;
-    response.send(user);
+  const { user_id, username, email, age, password } = request.body;
+  console.log(request.body);
+
+  const user = await sql`
+    INSERT INTO users (user_id, username, email, password, age, admin)
+    VALUES (${user_id}, ${username}, ${email}, ${password}, ${age}, false)
+    RETURNING user_id, username, email, age;`;
+
+  response.send(user);
 });
+
+app.get('/library', async (_, response) => {
+  const library = await sql`select * from library`;
+  response.send(library);
+});
+
 
 app.get('/game',async(_,response) => 
 {

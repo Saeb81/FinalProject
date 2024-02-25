@@ -84,6 +84,42 @@ export default function PrimarySearchAppBar() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const [userId, setUserId] = useState<string | null>(null);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('user_id');
+    console.log(storedUserId);
+  
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []); 
+  
+  useEffect(() => {
+  
+    isAdmin();
+  }, [userId]); 
+
+
+  const isAdmin = async () => {
+    let i = 0;
+    const data = await get('/users')
+
+    while (i < data.length) {
+   
+      if (data[i].user_id == userId) {
+        console.log(data[i-1].admin)
+        if(data[i-1].admin)
+        {
+          setAlertVisible(true);
+        }
+      }
+      i++;
+    }
+  }
+
   const loadGame = (event) => {
     setTitle(event.target.value)
   }
@@ -189,10 +225,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className='home'>
-
-
-
+    <div className='home' >
       <Box sx={{ flexGrow: 1, }}>
         <AppBar position="static">
           <Toolbar sx={{ display: 'flex', backgroundColor: 'black', }}>
@@ -212,7 +245,7 @@ export default function PrimarySearchAppBar() {
 
               <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Store</Typography></Link>
               <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Library</Typography></Link>
-              <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>AddGame</Typography></Link>
+              <Link to="/Library"><Typography sx={{  display: alertVisible ? 'flex' : 'none', color: 'white' }} onClick={handleMenuClose}>AddGame</Typography></Link>
 
             </Container>
 
