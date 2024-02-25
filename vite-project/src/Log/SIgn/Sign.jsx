@@ -44,9 +44,11 @@ export default function Sign() {
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
 
-    let text = '';
-    let text1 = '';
-
+    let text1 = "Please Fill"
+    let text2 = "All The Fields"
+    let text3 = "Already Exist"
+    let text4 = "This Username"
+    
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -55,7 +57,7 @@ export default function Sign() {
     const linkStyle = {
         display: 'flex',
         alignItems: 'center',
-
+        
     };
 
     const [alertVisible, setAlertVisible] = useState(false);
@@ -65,6 +67,8 @@ export default function Sign() {
 
     const failed = () => {
         setAlertVisible(false);
+        setAlertVisible1(false);
+        setAlertVisible2(false);
     }
 
 
@@ -99,11 +103,8 @@ export default function Sign() {
         let i = 0;
         if (username === "" || password === "" || email === "" || age === "") {
             console.log(username)
-            text = 'Please Fill'
-            text1 = 'All The Fields'
-            console.log(text);
-
             setAlertVisible(true)
+            setAlertVisible1(true)
             return;
         }
 
@@ -115,13 +116,8 @@ export default function Sign() {
                 console.log(username)
                 console.log(data[i].password)
                 console.log(password)
-                console.log(text);
-                text = 'This Username'
-                text1 = 'Already Exist'
-                console.log("text:", text);
-                console.log("text1:", text1);
-
                 setAlertVisible(true)
+                setAlertVisible2(true)
                 break;
 
             }
@@ -130,8 +126,8 @@ export default function Sign() {
         }
         if (i >= data.length) {
 
-            const id = hashing(username, hashTableSize)
-            post('/users', { id, username, email, password, age })
+          
+            post('/users', {username, email, password, age })
             navigate('/Home')
         }
 
@@ -139,16 +135,6 @@ export default function Sign() {
     };
 
 
-    function hashing(s, tableSize) {
-        let hashVal = 0;
-        for (let i = 0; i < s.length; i++) {
-            hashVal += s.charCodeAt(i);
-        }
-        return hashVal % tableSize;
-    }
-
-
-    const hashTableSize = 28;
 
 
     return (
@@ -202,7 +188,7 @@ export default function Sign() {
                             justifyContent: 'center',
                             borderRadius: '5px',
                             position: 'absolute',
-                            top: '85%',
+                            top: '55%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
 
@@ -211,16 +197,28 @@ export default function Sign() {
                                 <Container sx={{
 
                                     justifyContent: 'center',
+                                    alignItems : 'center',
                                     borderRadius: '5px',
                                     border: 'solid beige',
 
                                 }}>
 
-                                    <InputLabel htmlFor="standard-adornment-password">
-                                        {'text: ' + text}
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible1 ? 'flex' : 'none',  justifyContent: 'center',
+                                    alignItems : 'center'}}>
+                                        {text1}
                                     </InputLabel>
-                                    <InputLabel htmlFor="standard-adornment-password">
-                                        {'text1: ' + text1}
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible1 ? 'flex' : 'none', justifyContent: 'center',
+                                    alignItems : 'center'}}>
+                                        {text2}
+                                    </InputLabel>
+
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
+                                    alignItems : 'center'}}>
+                                        {text3}
+                                    </InputLabel>
+                                    <InputLabel htmlFor="standard-adornment-password" sx={{  display: alertVisible2 ? 'flex' : 'none', justifyContent: 'center',
+                                    alignItems : 'center',}}>
+                                        {text4}
                                     </InputLabel>
 
                                 </Container>
@@ -230,7 +228,7 @@ export default function Sign() {
                     </div>
 
                     <Link to="/" style={linkStyle}><div className='in'>Already Having an Account?Login</div></Link>
-                    <div className='sign-btn ' onClick={handleSign}><Button>Sign in</Button></div>
+                    <div className='sign-btn ' onClick={handleSign}>Sign in</div>
 
                 </Container>
             </div>

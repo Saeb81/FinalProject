@@ -1,6 +1,9 @@
 .page {
  
     /* background-color: darkseagreen; */
+    display: flex;
+    justify-content: center;
+
     background-image: url("a.jpg") ;
     height: 720px;
     padding: 10%;
@@ -20,5 +23,5 @@
 .in
 {
   display: flex ;
-  color: rgb(172, 166, 166);
+  color: blanchedalmond;
 }

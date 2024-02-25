@@ -124,20 +124,7 @@ export default function Login() {
         setAlertVisible2(true)
     };
 
-    function hashing(s, tableSize) {
-        let hashVal = 0;
-        for (let i = 0; i < s.length; i++) {
-            hashVal += s.charCodeAt(i);
-        }
-        return hashVal % tableSize;
-    }
-
-
-    const hashTableSize = 28;
-    const key = "admin";
-    const hashedKey = hashing(key, hashTableSize);
-    console.log(`Hashed key for '${key}' is: ${hashedKey}`);
-
+   
 
     return (
         <div className='page'>
@@ -175,7 +162,7 @@ export default function Login() {
                     </div>
                     <Link to="/Sign" style={linkStyle}><div className='in'>New User?Sign in</div></Link>
                     <Button onClick={handleForgotPasswordClick} >Forgot Your Password?</Button>
-                    <div className='sign-btn '><Button onClick={handleLogin}>Login</Button></div>
+                    <div className='sign-btn ' onClick={handleLogin}>Login</div>
                 </Container>
 
 
