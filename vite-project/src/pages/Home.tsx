@@ -86,7 +86,7 @@ export default function PrimarySearchAppBar() {
 
   const [userId, setUserId] = useState<string | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
-
+ 
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
@@ -236,7 +236,7 @@ export default function PrimarySearchAppBar() {
                 component="div"
                 sx={{ display: { xs: 'none', sm: 'block' } }}
               >
-                <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>MaveShop</Typography></Link>
+                <Link to="/Home"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>MaveShop</Typography></Link>
               </Typography>
 
             </Container>

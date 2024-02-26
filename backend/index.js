@@ -7,11 +7,11 @@ app.use(express.urlencoded({ extended: true }))
 
 
 app.use(function (_, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
 });
 
 const port = 3000;
@@ -42,8 +42,8 @@ getPgVersion();
 
 
 app.get('/users', async (_, response) => {
-    const user = await sql`select * from users`;
-    response.send(user);
+  const user = await sql`select * from users`;
+  response.send(user);
 });
 
 app.post('/users', async (request, response) => {
@@ -64,10 +64,21 @@ app.get('/library', async (_, response) => {
 });
 
 
-app.get('/game',async(_,response) => 
-{
-  const game = await sql `select * from game`;
+app.get('/game', async (_, response) => {
+  const game = await sql`select * from game`;
   response.send(game);
+}
+
+)
+
+app.get('/game', '/library', async (_, response) => {
+  const userid = request.body;
+  const usergame = await sql`
+SELECT game.*
+FROM game
+INNER JOIN library ON game.id = library.game_id
+WHERE library.user_id = ${userid}`;
+response.send(usergame);
 }
 
 )
