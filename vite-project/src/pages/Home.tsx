@@ -243,9 +243,9 @@ export default function PrimarySearchAppBar() {
 
             <Container sx={{ maxWidth: '300px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
 
-              <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Store</Typography></Link>
+              <Link to="/Store"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Store</Typography></Link>
               <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Library</Typography></Link>
-              <Link to="/Library"><Typography sx={{  display: alertVisible ? 'flex' : 'none', color: 'white' }} onClick={handleMenuClose}>AddGame</Typography></Link>
+              <Link to="/AddGames"><Typography sx={{  display: alertVisible ? 'flex' : 'none', color: 'white' }} onClick={handleMenuClose}>Edit Games</Typography></Link>
 
             </Container>
 

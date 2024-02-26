@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardContent, Container ,FormControl} from '@mui/material';
+import { Grid, Card, CardContent, Container ,FormControl, Input, FormLabel} from '@mui/material';
 import {CardMedia} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
@@ -31,10 +31,17 @@ import { Link } from 'react-router-dom';
 
 import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
-
+import { useNavigate } from 'react-router-dom';
 
 function GameCard({ base64, title,id}) {
-  localStorage.setItem('game_id', id);
+ 
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    localStorage.setItem('game_id', id);
+    navigate('/Games');
+  };
   return (
     <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
       <Card sx={{
@@ -55,7 +62,7 @@ function GameCard({ base64, title,id}) {
         </CardContent>
         <CardActions>
         <Link to="/Play">  <Button size="small">Play</Button></Link>
-        <Link to="/Games">   <Button size="small">game page</Button></Link>
+          <Button onClick={handleClick}  size="small">game page</Button>
          
         </CardActions>
       </Card>
@@ -74,13 +81,7 @@ function GameCard({ base64, title,id}) {
 export default function Library() {
   let storedUserId = 0;
 
-  const count = async () => {
 
-  }
-  const games = async () => {
-
-
-  }
   const fetchData = async () => {
     try {
       const data = await get(`/game`, `/library?userId=${storedUserId}`);
@@ -105,9 +106,9 @@ export default function Library() {
 
 
   return <div className='setting'>
-     <Button sx={{backgroundColor: 'black'}}> Games List</Button>
+     <FormLabel sx={{display: 'flex', justifyContent : 'center',backgroundColor: 'white'}}> Games List</FormLabel>
 
-    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'darkslategray',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
+    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'azure',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
       <ListItem sx={{display: 'flex', flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}>
        
         {userGames.map((game, index) => (

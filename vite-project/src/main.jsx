@@ -10,6 +10,10 @@ import Profile from './pages/Profile/Profile.jsx'
 import Home from './pages/Home.tsx'
 import Library from './pages/Library/Library.jsx'
 import Games from './pages/Games/Games.jsx'
+import Store from './pages/Store/Store.jsx'
+import AddGames from './pages/AddGame/AddGAme.jsx'
+import Edit from './pages/AddGame/Edit.jsx'
+import Add from './pages/AddGame/Add.jsx'
 import './index.css'
 
 
@@ -45,6 +49,25 @@ const router = createBrowserRouter([
   {
     path: "/games",
     element: <Games/>,
+  }
+  ,
+  {
+    path: "/store",
+    element: <Store/>,
+  }
+  ,
+  {
+    path: "/addgames",
+    element: <AddGames/>,
+  },
+  {
+    path: "/edit",
+    element: <Edit/>,
+  }
+  ,
+  {
+    path: "/add",
+    element: <Add/>,
   }
 
 ]);
