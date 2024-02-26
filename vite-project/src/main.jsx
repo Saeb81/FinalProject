@@ -9,6 +9,7 @@ import Sign from './Log/Sign/Sign.jsx'
 import Profile from './pages/Profile/Profile.jsx'
 import Home from './pages/Home.tsx'
 import Library from './pages/Library/Library.jsx'
+import Games from './pages/Games/Games.jsx'
 import './index.css'
 
 
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/library",
     element: <Library/>,
+  }
+  ,
+  {
+    path: "/games",
+    element: <Games/>,
   }
 
 ]);

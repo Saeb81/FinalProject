@@ -33,7 +33,8 @@ import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
 
 
-function GameCard({ base64, title}) {
+function GameCard({ base64, title,id}) {
+  localStorage.setItem('game_id', id);
   return (
     <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
       <Card sx={{
@@ -53,8 +54,9 @@ function GameCard({ base64, title}) {
          
         </CardContent>
         <CardActions>
-          <Button size="small">Play</Button>
-          <Button size="small">game page</Button>
+        <Link to="/Play">  <Button size="small">Play</Button></Link>
+        <Link to="/Games">   <Button size="small">game page</Button></Link>
+         
         </CardActions>
       </Card>
     </FormControl>
@@ -113,7 +115,7 @@ export default function Library() {
           key={index}
           base64={game.image_base64}
           title={game.title}
-         
+          id = {game.id}
         />
       ))}
       </ListItem>

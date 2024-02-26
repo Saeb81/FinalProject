@@ -6,11 +6,3 @@
     background-color: lavender;
     padding: 10%;
 }
-.library
-{
-    display: flex;
-    flex-direction: column;
-    color: white;
-    background-color: white;
-    padding: 10%;
-}
