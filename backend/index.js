@@ -1,7 +1,8 @@
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
@@ -70,17 +71,51 @@ app.get('/game', async (_, response) => {
 }
 
 )
+app.get('/view', async (request, response) => {
+  const userId = request.query.userId;
+  console.log(request.query);
+  console.log(request.body);
+  console.log("-------------------");
+  console.log(userId);
 
-app.get('/game', '/library', async (_, response) => {
-  const userid = request.body;
-  const usergame = await sql`
-SELECT game.*
-FROM game
-INNER JOIN library ON game.id = library.game_id
-WHERE library.user_id = ${userid}`;
-response.send(usergame);
-}
+  try {
+    const userGames = await sql`
+      SELECT *
+      FROM "view"
+      WHERE user_id = ${userId}
+    `;
 
-)
+    response.send(userGames);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    response.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/title', async (request, response) => {
+  try {
+    const search = request.query.search;
+    search.toUpperCase;
+    console.log(search);
+    console.log(request.query.search);
+
+    const titles = await sql`SELECT * FROM title WHERE title LIKE '%' || ${search} || '%'`;
+    console.log(titles);
+    response.send(titles);
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+});
+
+app.get('/comments', async (response) => {
+  try {
+    const comments = await sql `SELECT * FROM comments`;
+    response.send(comments);
+  } catch (error) {
+
+  }
+});
+
+
 
 app.listen(port, () => console.log(`My App listening at http://localhost:${port}`));

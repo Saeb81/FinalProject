@@ -84,11 +84,14 @@ export default function Library() {
 
   const fetchData = async () => {
     try {
-      const data = await get(`/game`, `/library?userId=${storedUserId}`);
+      console.log('Front End - user_id:', localStorage.getItem('user_id'));
+  
+      const data = await get(`/view?userId=${localStorage.getItem('user_id')}`);
       setUserGames(data);
+      console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
-      // Handle error state if needed
+     
     }
   };
 
@@ -109,7 +112,7 @@ export default function Library() {
      <FormLabel sx={{display: 'flex', justifyContent : 'center',backgroundColor: 'white'}}> Games List</FormLabel>
 
     <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'azure',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
-      <ListItem sx={{display: 'flex', flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}>
+      <ListItem sx={{display: 'flex', flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
        
         {userGames.map((game, index) => (
         <GameCard

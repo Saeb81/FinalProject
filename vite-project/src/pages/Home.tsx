@@ -72,6 +72,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
+function SearchGame({title}) {
+
+  return (
+    <div>
+      <Button>{title}</Button>
+    </div>
+  );
+}
+
+
+
+
+
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -82,25 +95,28 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [search, setSearch] = useState('');
 
   const [userId, setUserId] = useState<string | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
- 
+
+  const [height, setHeight] = useState(50)
+
+
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
     console.log(storedUserId);
-  
+
     if (storedUserId) {
       setUserId(storedUserId);
     }
-  }, []); 
-  
+  }, []);
+
   useEffect(() => {
-  
+
     isAdmin();
-  }, [userId]); 
+  }, [userId]);
 
 
   const isAdmin = async () => {
@@ -108,17 +124,18 @@ export default function PrimarySearchAppBar() {
     const data = await get('/users')
 
     while (i < data.length) {
-   
+
       if (data[i].user_id == userId) {
-        console.log(data[i-1].admin)
-        if(data[i-1].admin)
-        {
+        console.log(data[i - 1].admin)
+        if (data[i - 1].admin) {
           setAlertVisible(true);
         }
       }
       i++;
     }
   }
+
+
 
   const loadGame = (event) => {
     setTitle(event.target.value)
@@ -141,6 +158,37 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+    console.log(search);
+    console.log("---------------");
+    getGames();
+    console.log("--------------------");
+    console.log(search);
+
+  }
+
+
+
+
+  const getGames = async () => {
+    console.log(search);
+    
+    if (search != '') {
+      const data2 =  await get(`/title?search=${search}`);
+      console.log(data2);
+      let i = 0;
+      while (i < data2.length) {
+        
+        setHeight(height + 100);
+        SearchGame(data2[i].title);
+        i++;
+      }
+    }
+  }
 
 
 
@@ -226,7 +274,19 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className='home' >
-      <Box sx={{ flexGrow: 1, }}>
+
+      <Search sx={{ backgroundColor: 'darkslategray', height: height }}>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase sx={{}} onChange={handleSearch} onClick={handleSearch}
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </Search>
+
+
+      <Box sx={{ display: 'flex', flexGrow: 1, }}>
         <AppBar position="static">
           <Toolbar sx={{ display: 'flex', backgroundColor: 'black', }}>
             <Container>
@@ -245,19 +305,11 @@ export default function PrimarySearchAppBar() {
 
               <Link to="/Store"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Store</Typography></Link>
               <Link to="/Library"><Typography sx={{ display: 'flex', color: 'white' }} onClick={handleMenuClose}>Library</Typography></Link>
-              <Link to="/AddGames"><Typography sx={{  display: alertVisible ? 'flex' : 'none', color: 'white' }} onClick={handleMenuClose}>Edit Games</Typography></Link>
+              <Link to="/AddGames"><Typography sx={{ display: alertVisible ? 'flex' : 'none', color: 'white' }} onClick={handleMenuClose}>Edit Games</Typography></Link>
 
             </Container>
 
-            <Search sx={{ backgroundColor: 'darkslategray' }}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
+
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex', } }}>
