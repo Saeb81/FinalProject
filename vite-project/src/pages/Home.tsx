@@ -72,18 +72,43 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-function SearchGame({title}) {
+import { useNavigate } from 'react-router-dom';
+function GameCard({ base64, title, id }) {
 
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    localStorage.setItem('game_id', id);
+    navigate('/Games');
+  };
   return (
-    <div>
-      <Button>{title}</Button>
-    </div>
+    <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
+      <Card sx={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
+        border: 'groove', backgroundColor: 'inherit'
+      }}>
+        <CardMedia
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
+          image={base64}
+          title="Game Image"
+          component='img'
+        />
+        <CardContent>
+          <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+            {title}
+          </Typography>
+
+        </CardContent>
+        <CardActions>
+          <Link to="/Play">  <Button size="small">Play</Button></Link>
+          <Button onClick={handleClick} size="small">game page</Button>
+
+        </CardActions>
+      </Card>
+    </FormControl>
   );
 }
-
-
-
-
 
 
 export default function PrimarySearchAppBar() {
@@ -102,6 +127,9 @@ export default function PrimarySearchAppBar() {
 
   const [height, setHeight] = useState(50)
 
+  const [game1, setGame1] = useState('')
+  const [game2, setGame2] = useState('')
+  const [game3, setGame3] = useState('')
 
 
   useEffect(() => {
@@ -163,6 +191,9 @@ export default function PrimarySearchAppBar() {
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
+    setGame1("");
+    setGame2("");
+    setGame3("");
     console.log(search);
     console.log("---------------");
     getGames();
@@ -176,15 +207,31 @@ export default function PrimarySearchAppBar() {
 
   const getGames = async () => {
     console.log(search);
-    
+    setHeight(50);
+    console.log(height);
     if (search != '') {
-      const data2 =  await get(`/title?search=${search}`);
+      setHeight(50);
+      console.log("-----------");
+      console.log(height);
+      const data2 = await get(`/title?search=${search}`);
       console.log(data2);
       let i = 0;
-      while (i < data2.length) {
-        
-        setHeight(height + 100);
-        SearchGame(data2[i].title);
+      while (i < 3 && i < data2.length) {
+        console.log("--------------");
+        console.log(height);
+        setHeight(150);
+        console.log(height);
+        console.log(i);
+
+        if (i == 0) {
+          setGame1(data2[0].title)
+        }
+        if (i == 1) {
+          setGame2(data2[1].title)
+        }
+        if (i == 2) {
+          setGame3(data2[2].title)
+        }
         i++;
       }
     }
@@ -275,7 +322,7 @@ export default function PrimarySearchAppBar() {
   return (
     <div className='home' >
 
-      <Search sx={{ backgroundColor: 'darkslategray', height: height }}>
+      <Search sx={{ backgroundColor: 'darkslategray', height: height, display: 'flex', flexDirection: 'column' }}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
@@ -283,6 +330,9 @@ export default function PrimarySearchAppBar() {
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
         />
+        <Button> {game1}</Button>
+        <Button> {game2}</Button>
+        <Button> {game3}</Button>
       </Search>
 
 
