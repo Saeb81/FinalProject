@@ -15,8 +15,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardContent, Container ,FormControl, Input, FormLabel} from '@mui/material';
-import {CardMedia} from '@mui/material';
+import { Grid, Card, CardContent, Container, FormControl, Input, FormLabel } from '@mui/material';
+import { CardMedia } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -32,9 +32,11 @@ import { Link } from 'react-router-dom';
 import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
 import { useNavigate } from 'react-router-dom';
+import './Store.css';
 
-function GameCard({ base64, title,id}) {
- 
+
+function GameCard({ base64, title, id }) {
+
 
   const navigate = useNavigate();
 
@@ -58,12 +60,13 @@ function GameCard({ base64, title,id}) {
           <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-         
+
         </CardContent>
         <CardActions>
-      
-          <Button onClick={handleClick}  size="small">game page</Button>
+        <Link to="/Buy" > <Button size="small">Buy</Button></Link>
          
+          <Button size="small">Read More</Button>
+
         </CardActions>
       </Card>
     </FormControl>
@@ -98,20 +101,20 @@ export default function Library() {
   const [userGames, setUserGames] = useState([]);
 
 
-  return <div className='setting'>
-    <FormLabel sx={{display: 'flex', justifyContent : 'center',backgroundColor: 'white'}}> Games List</FormLabel>
+  return <div className='store'>
+    <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
 
-    <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'azure',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
-      <ListItem sx={{display: 'flex', flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
-       
+    <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
+      <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+
         {userGames.map((game, index) => (
-        <GameCard
-          key={index}
-          base64={game.image_base64}
-          title={game.title}
-          id = {game.id}
-        />
-      ))}
+          <GameCard
+            key={index}
+            base64={game.image_base64}
+            title={game.title}
+            id={game.id}
+          />
+        ))}
       </ListItem>
 
     </List>

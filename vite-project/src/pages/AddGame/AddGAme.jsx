@@ -98,14 +98,14 @@ export default function Library() {
   const [userGames, setUserGames] = useState([]);
 
 
-  return <div className='setting'>
+  return <div className='store'>
    
     <Button sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'Black' }}>      <Link to="/Add" >   Add Game </Link></Button>
 
     <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
 
-    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'azure', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
-      <ListItem sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+    <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
+      <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
         {userGames.map((game, index) => (
           <GameCard

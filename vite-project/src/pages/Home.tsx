@@ -15,15 +15,19 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent, Container, FormControl } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Container, FormControl,FormLabel } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
 import './Home.css';
 import { Link } from 'react-router-dom';
 
 import { get } from '../utils/httpClient'
 import { post } from '../utils/httpClient'
+import { useNavigate } from 'react-router-dom';
 
 const data = await get('/game')
 const base64 = data[2].image_base64
@@ -72,44 +76,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-import { useNavigate } from 'react-router-dom';
-function GameCard({ base64, title, id }) {
-
-
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    localStorage.setItem('game_id', id);
-    navigate('/Games');
-  };
-  return (
-    <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
-      <Card sx={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
-        border: 'groove', backgroundColor: 'inherit'
-      }}>
-        <CardMedia
-          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
-          image={base64}
-          title="Game Image"
-          component='img'
-        />
-        <CardContent>
-          <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-
-        </CardContent>
-        <CardActions>
-          <Link to="/Play">  <Button size="small">Play</Button></Link>
-          <Button onClick={handleClick} size="small">game page</Button>
-
-        </CardActions>
-      </Card>
-    </FormControl>
-  );
-}
-
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -130,6 +96,30 @@ export default function PrimarySearchAppBar() {
   const [game1, setGame1] = useState('')
   const [game2, setGame2] = useState('')
   const [game3, setGame3] = useState('')
+  const [gameId1, setGameId1] = useState('')
+  const [gameId2, setGameId2] = useState('')
+  const [gameId3, setGameId3] = useState('')
+
+  const [userGames, setUserGames] = useState([]);
+
+
+  const fetchData = async () => {
+    try {
+    
+  
+      const data = await get(`/game`);
+      setUserGames(data);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+     
+    }
+  };
+
+  useEffect(() => {
+    
+    fetchData();
+  }, []);
 
 
   useEffect(() => {
@@ -194,43 +184,61 @@ export default function PrimarySearchAppBar() {
     setGame1("");
     setGame2("");
     setGame3("");
-    console.log(search);
-    console.log("---------------");
+    setGameId1("");
+    setGameId2("");
+    setGameId3("");
     getGames();
-    console.log("--------------------");
-    console.log(search);
+  }
+  const navigate = useNavigate();
 
+  const handlegame1 = () => {
+    localStorage.setItem('game_id', gameId1);
+
+    navigate('/Games');
+  }
+
+  const handlegame2 = () => {
+    localStorage.setItem('game_id', gameId2);
+
+    navigate('/Games');
+  }
+
+  const handlegame3 = () => {
+    localStorage.setItem('game_id', gameId3);
+
+    navigate('/Games');
   }
 
 
-
-
   const getGames = async () => {
-    console.log(search);
+
+
+
+
     setHeight(50);
-    console.log(height);
+
     if (search != '') {
       setHeight(50);
-      console.log("-----------");
-      console.log(height);
+
       const data2 = await get(`/title?search=${search}`);
-      console.log(data2);
+
       let i = 0;
       while (i < 3 && i < data2.length) {
-        console.log("--------------");
-        console.log(height);
+
         setHeight(150);
-        console.log(height);
-        console.log(i);
+
 
         if (i == 0) {
           setGame1(data2[0].title)
+          setGameId1(data2[0].id)
         }
         if (i == 1) {
           setGame2(data2[1].title)
+          setGameId2(data2[1].id)
         }
         if (i == 2) {
           setGame3(data2[2].title)
+          setGameId3(data2[2].id)
         }
         i++;
       }
@@ -330,9 +338,10 @@ export default function PrimarySearchAppBar() {
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
         />
-        <Button> {game1}</Button>
-        <Button> {game2}</Button>
-        <Button> {game3}</Button>
+
+        <Button onClick={handlegame1}> {game1}</Button>
+        <Button onClick={handlegame2}> {game2}</Button>
+        <Button onClick={handlegame3}> {game3}</Button>
       </Search>
 
 
@@ -407,8 +416,9 @@ export default function PrimarySearchAppBar() {
         {renderMenu}
       </Box>
 
+    
 
-
+      
       <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
         <Card sx={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
@@ -416,16 +426,36 @@ export default function PrimarySearchAppBar() {
         }}>
           <CardMedia
             sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
-            image={base64}
+            image={data[data.length-1].image_base64}
             title="green iguana"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              GTA VI
+            {data[data.length-1].title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              the new Rockstar Game
+    
+          </CardContent>
+          <CardActions>
+            <Button size="small">Buy</Button>
+            <Button size="small">Read More</Button>
+          </CardActions>
+        </Card>
+      </FormControl>
+      <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
+        <Card sx={{
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
+          border: 'groove', backgroundColor: 'inherit'
+        }}>
+          <CardMedia
+            sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
+            image={data[data.length-2].image_base64}
+            title="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+            {data[data.length-2].title}
             </Typography>
+         
           </CardContent>
           <CardActions>
             <Button size="small">Buy</Button>

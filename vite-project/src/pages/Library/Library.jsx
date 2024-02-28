@@ -71,13 +71,6 @@ function GameCard({ base64, title,id}) {
 }
 
 
-
-
-
-
-
-
-
 export default function Library() {
   let storedUserId = 0;
 
@@ -108,10 +101,10 @@ export default function Library() {
   const [userGames, setUserGames] = useState([]);
 
 
-  return <div className='setting'>
+  return <div className='store'>
      <FormLabel sx={{display: 'flex', justifyContent : 'center',backgroundColor: 'white'}}> Games List</FormLabel>
 
-    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'azure',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
+    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'inherit',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
       <ListItem sx={{display: 'flex', flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
        
         {userGames.map((game, index) => (

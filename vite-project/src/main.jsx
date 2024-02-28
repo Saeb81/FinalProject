@@ -14,6 +14,7 @@ import Store from './pages/Store/Store.jsx'
 import AddGames from './pages/AddGame/AddGAme.jsx'
 import Edit from './pages/AddGame/Edit.jsx'
 import Add from './pages/AddGame/Add.jsx'
+import Buy from './pages/Buy/Buy.jsx'
 import './index.css'
 
 
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
   {
     path: "/add",
     element: <Add/>,
+  }
+  ,
+  {
+    path: "/buy",
+    element: <Buy/>,
   }
 
 ]);
