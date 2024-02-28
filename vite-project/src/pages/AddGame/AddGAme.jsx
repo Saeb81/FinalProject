@@ -107,7 +107,7 @@ export default function Library() {
     <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
       <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-        {userGames.map((game, index) => (
+        {userGames.slice().reverse().map((game, index) => (
           <GameCard
             key={index}
             base64={game.image_base64}

@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent, FormControl, Container } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, FormControl, Container, TextField } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -32,18 +32,36 @@ import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
 
 
+function Comments({ comment, username, game_id }) {
+    console.log(localStorage.getItem('game_id'))
+    if (game_id != localStorage.getItem('game_id')) {
+        return;
+    }
+    return (
+        <Typography sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Typography sx={{}}>
+                {username} :
+            </Typography>
+            <Typography>
 
+                {comment}
+            </Typography>
+        </Typography>
+    );
+}
 
 
 export default function Profile() {
     const [data, setData] = useState([]);
-    const [gameId, setGameId] = useState(0);
+    const [game_id, setGameId] = useState(0);
     const [image_base64, setImage_base64] = useState('');
     const [genre, setGenre] = useState('');
     const [rate, setRate] = useState(0);
     const [description, setDescription] = useState('');
     const [title, setTitle] = useState(0);
-
+    const [data3, setData3] = useState([]);
+    const [data4, setData4] = useState([]);
+    const [comment, setComment1] = useState('');
 
     useEffect(() => {
 
@@ -52,21 +70,22 @@ export default function Profile() {
         setGameId(storedGameId);
 
         fetchData();
-
+        fetchData1();
+        fetchData2();
 
     }, []);
 
     useEffect(() => {
-        if (data.length > 0 && gameId > 0) {
-            setTitle(data[gameId - 1].title);
-            setGenre(data[gameId - 1].genre);
-            setImage_base64(data[gameId - 1].image_base64);
-            setRate(data[gameId - 1].rate);
-            setDescription(data[gameId - 1].description);
+        if (data.length > 0 && game_id > 0) {
+            setTitle(data[game_id - 1].title);
+            setGenre(data[game_id - 1].genre);
+            setImage_base64(data[game_id - 1].image_base64);
+            setRate(data[game_id - 1].rate);
+            setDescription(data[game_id - 1].description);
 
 
         }
-    }, [data, gameId]);
+    }, [data, game_id]);
 
     const fetchData = async () => {
 
@@ -78,8 +97,40 @@ export default function Profile() {
         }
     }
 
+    const fetchData1 = async () => {
 
-    return <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'lavender', justifyContent: 'center', alignItems: 'center', height: '720px' }}>
+        try {
+            const data1 = await get('/comments');
+            setData3(data1);
+        } catch (error) {
+
+        }
+    }
+
+    const fetchData2 = async () => {
+
+        try {
+            const data1 = await get('/users');
+            setData4(data1);
+        } catch (error) {
+
+        }
+    }
+    const handleComment = (event) => {
+        setComment1(event.target.value)
+    }
+
+    const handlecomment1 = async () => {
+        const data1 = await get('/comments');
+        const comment_id = data1.length+1;
+        const user_id = localStorage.getItem('user_id');
+        const username = data4[user_id-1].username
+        console.log(username);
+        console.log(data1.length+1);
+        await post('/comments', { username, comment, comment_id, user_id, game_id });
+    }
+
+    return <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'lavender', justifyContent: 'center', alignItems: 'center', height: 'Auto' }}>
 
         <Card sx={{
             display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
@@ -91,7 +142,7 @@ export default function Profile() {
                 title="Game Image"
                 component='img'
             />
-            <CardContent sx={{display : 'flex', flexDirection : 'column', justifyContent : 'center',alignItems: 'center'}}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
                     {title}
 
@@ -117,6 +168,21 @@ export default function Profile() {
 
             {description}
         </Typography>
+        <Typography sx={{ display: 'flex', flexDirection: 'row' }}>
+            <TextField onChange={handleComment} sx={{ width: 500 }} label="Write a Comment">
+            </TextField>
+            <Button onClick={handlecomment1}>send</Button>
+        </Typography>
+        <Container sx={{ border: 'solid black', height: 'auto'}}>
+            {data3.slice().reverse().map((comments, index) => (
+                <Comments
+                    key={index}
+                    comment={comments.comment}
+                    username={comments.username}
+                    game_id={comments.game_id}
+                />
+            ))}
+        </Container>
     </Box>
 }
 

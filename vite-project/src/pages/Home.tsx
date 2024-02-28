@@ -100,6 +100,7 @@ export default function PrimarySearchAppBar() {
   const [gameId2, setGameId2] = useState('')
   const [gameId3, setGameId3] = useState('')
 
+
   const [userGames, setUserGames] = useState([]);
 
 
@@ -208,6 +209,19 @@ export default function PrimarySearchAppBar() {
 
     navigate('/Games');
   }
+
+  const handlegame4 = () => {
+    localStorage.setItem('game_id', data[data.length-1].id);
+
+    navigate('/Games');
+  }
+
+  const handlegame5 = () => {
+    localStorage.setItem('game_id', data[data.length-2].id);
+
+    navigate('/Games');
+  }
+
 
 
   const getGames = async () => {
@@ -436,8 +450,8 @@ export default function PrimarySearchAppBar() {
     
           </CardContent>
           <CardActions>
-            <Button size="small">Buy</Button>
-            <Button size="small">Read More</Button>
+          <Link to="/Buy" > <Button size="small">Buy</Button></Link>
+           <Link to = "/Games">  <Button size="small">Read More</Button></Link>
           </CardActions>
         </Card>
       </FormControl>
@@ -458,8 +472,8 @@ export default function PrimarySearchAppBar() {
          
           </CardContent>
           <CardActions>
-            <Button size="small">Buy</Button>
-            <Button size="small">Read More</Button>
+          <Link to="/Buy" > <Button size="small">Buy</Button></Link>
+          <Link to = "/Games">  <Button size="small">Read More</Button></Link>
           </CardActions>
         </Card>
       </FormControl>

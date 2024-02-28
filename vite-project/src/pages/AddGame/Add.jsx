@@ -36,7 +36,7 @@ import { post } from '../../utils/httpClient'
 
 
 export default function Profile() {
-    const [data, setData] = useState([]);
+
     const [gameId, setGameId] = useState(0);
     const [image_base64, setImage_base64] = useState('');
     const [genre, setGenre] = useState('');
@@ -45,9 +45,9 @@ export default function Profile() {
     const [title, setTitle] = useState(0);
 
 
-    const [image, setImage] = useState(null);
+    // const [image, setImage] = useState(null);
 
-   
+
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -55,7 +55,7 @@ export default function Profile() {
         }
     };
 
-    
+
     const handleDrop = (event) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
@@ -64,19 +64,19 @@ export default function Profile() {
         }
     };
 
- 
+
     const preventDefaultAction = (event) => {
         event.preventDefault();
         event.stopPropagation();
     };
 
-   
+
     const convertToBase64 = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
             const base64String = reader.result;
-            setImage(base64String);
+            setImage_base64(base64String);
         };
         reader.onerror = (error) => {
             console.error('Error converting file to base64:', error);
@@ -84,38 +84,50 @@ export default function Profile() {
     };
 
 
-    useEffect(() => {
-
-        const storedGameId = localStorage.getItem('game_id');
-
-        setGameId(storedGameId);
-
+    const handleTitle = (event) => {
+        setTitle(event.target.value)
         fetchData();
+    }
 
 
-    }, []);
+    const handleRate = () => {
+        setRate(event.target.value)
+    }
+
+
+    const handleGenre = () => {
+        setGenre(event.target.value)
+    }
+
+    const handleDescription = () => {
+        setDescription(event.target.value)
+        
+    }
 
     useEffect(() => {
-        if (data.length > 0 && gameId > 0) {
-            setTitle(data[gameId - 1].title);
-            setGenre(data[gameId - 1].genre);
-            setImage_base64(data[gameId - 1].image_base64);
-            setRate(data[gameId - 1].rate);
-            setDescription(data[gameId - 1].description);
-
-
-        }
-    }, [data, gameId]);
+    
+        fetchData();
+      }, []);
 
     const fetchData = async () => {
-
-        try {
-            const data1 = await get('/game');
-            setData(data1);
-        } catch (error) {
-
-        }
+        const data = await get('/game')
+        setGameId(data.length+1);
+        console.log("---------------------");
+        console.log(gameId);
+        console.log("---------------------");
     }
+
+    const addGame = async () => {
+        console.log(title);
+        console.log(rate);
+        console.log(image_base64);
+        console.log(genre);
+        console.log(gameId);
+        console.log(description);
+        await fetchData();
+        post('/game', { title, rate, genre, description, gameId})
+    }
+
 
 
     return <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'lavender', justifyContent: 'center', alignItems: 'center', height: '720px' }}>
@@ -124,22 +136,13 @@ export default function Profile() {
             display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
             border: 'groove', backgroundColor: 'inherit'
         }}>
-            <CardMedia
-                sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
-
-                title="Game Image"
-                component='img'
-            />
 
             <Typography className="App" onDrop={handleDrop} onDragOver={preventDefaultAction}>
 
                 <input type="file" accept="image/*" onChange={handleFileInputChange} />
-                {image && (
-
-
-
+                {image_base64 && (
                     <Typography variant="body1" component="pre" style={{ width: '100%', maxHeight: '100px', overflowY: 'auto' }}>
-                        {image}
+
                     </Typography>
 
 
@@ -149,30 +152,27 @@ export default function Profile() {
             <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
 
-                    <TextField id="input-with-sx" label="title" variant="standard" />
+                    <TextField onChange={handleTitle} id="input-with-sx" label="title" variant="standard" />
                 </Typography>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
 
-                    <TextField id="input-with-sx" label="rate" variant="standard" />
+                    <TextField onChange={handleRate} id="input-with-sx" label="rate" variant="standard" />
                 </Typography>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
 
-                    <TextField id="input-with-sx" label="genre" variant="standard" />
+                    <TextField onChange={handleGenre} id="input-with-sx" label="genre" variant="standard" />
                 </Typography>
 
             </CardContent>
-            <CardActions>
-
-
-            </CardActions>
+            <Typography sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10 }} variant='h4'>
+                Description
+                <TextField onChange={handleDescription} id="input-with-sx" label="" variant="standard" />
+            </Typography>
         </Card>
 
-        <Typography sx={{ marginTop: 10 }} variant='h4'>
-            Description
-            <TextField id="input-with-sx" label="" variant="standard" />
-        </Typography>
 
 
+        <Button onClick={addGame} sx={{ border: 'solid black', height: 50, width: 100 }}> Add</Button>
 
     </Box>
 }

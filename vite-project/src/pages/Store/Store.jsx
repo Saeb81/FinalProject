@@ -65,7 +65,7 @@ function GameCard({ base64, title, id }) {
         <CardActions>
         <Link to="/Buy" > <Button size="small">Buy</Button></Link>
          
-          <Button size="small">Read More</Button>
+        <Button onClick={handleClick}  size="small">Read More</Button>
 
         </CardActions>
       </Card>
@@ -107,7 +107,7 @@ export default function Library() {
     <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
       <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-        {userGames.map((game, index) => (
+        {userGames.slice().reverse().map((game, index) => (
           <GameCard
             key={index}
             base64={game.image_base64}
