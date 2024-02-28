@@ -19,7 +19,7 @@ import { Grid, Card, CardMedia, CardContent, FormControl, Container } from '@mui
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-
+import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -43,6 +43,45 @@ export default function Profile() {
     const [rate, setRate] = useState(0);
     const [description, setDescription] = useState('');
     const [title, setTitle] = useState(0);
+
+
+    const [image, setImage] = useState(null);
+
+   
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            convertToBase64(file);
+        }
+    };
+
+    
+    const handleDrop = (event) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            convertToBase64(file);
+        }
+    };
+
+ 
+    const preventDefaultAction = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+   
+    const convertToBase64 = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const base64String = reader.result;
+            setImage(base64String);
+        };
+        reader.onerror = (error) => {
+            console.error('Error converting file to base64:', error);
+        };
+    };
 
 
     useEffect(() => {
@@ -87,20 +126,38 @@ export default function Profile() {
         }}>
             <CardMedia
                 sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
-                image={image_base64}
+
                 title="Game Image"
                 component='img'
             />
-            <CardContent sx={{display : 'flex', flexDirection : 'column', justifyContent : 'center',alignItems: 'center'}}>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {title}
 
+            <Typography className="App" onDrop={handleDrop} onDragOver={preventDefaultAction}>
+
+                <input type="file" accept="image/*" onChange={handleFileInputChange} />
+                {image && (
+
+
+
+                    <Typography variant="body1" component="pre" style={{ width: '100%', maxHeight: '100px', overflowY: 'auto' }}>
+                        {image}
+                    </Typography>
+
+
+                )}
+            </Typography>
+
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+
+                    <TextField id="input-with-sx" label="title" variant="standard" />
                 </Typography>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    rate : {rate}/10
+
+                    <TextField id="input-with-sx" label="rate" variant="standard" />
                 </Typography>
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {genre}
+
+                    <TextField id="input-with-sx" label="genre" variant="standard" />
                 </Typography>
 
             </CardContent>
@@ -112,11 +169,11 @@ export default function Profile() {
 
         <Typography sx={{ marginTop: 10 }} variant='h4'>
             Description
+            <TextField id="input-with-sx" label="" variant="standard" />
         </Typography>
-        <Typography color={'#1976d2'} gutterBottom variant="h6" component="div">
 
-            {description}
-        </Typography>
+
+
     </Box>
 }
 

@@ -69,8 +69,21 @@ app.get('/game', async (_, response) => {
   const game = await sql`select * from game`;
   response.send(game);
 }
-
 )
+
+app.post('/game', async (request, response) => {
+  const { 	image_base64, genre, rate, description, title,id } = request.body;
+  console.log(request.body);
+
+  const game = await sql`
+    INSERT INTO users (image_base64, genre, rate, description, title,id )
+    VALUES (${image_base64}, ${genree}, ${rate}, ${description}, ${title}, ${id})
+    RETURNING image_base64, genre, rate, description, title,id ;`;
+
+  response.send(game);
+});
+
+
 app.get('/view', async (request, response) => {
   const userId = request.query.userId;
   console.log(request.query);
