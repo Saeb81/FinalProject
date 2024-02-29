@@ -131,7 +131,7 @@ export default function Profile() {
 
 
     return <div className='games'>
-        <Container  sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center', height: '720px' }}>
                 <Card sx={{
                     display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
@@ -165,7 +165,7 @@ export default function Profile() {
                     </Typography>
                 </Card>
                 <Button onClick={addGame} sx={{ border: 'solid black', height: 50, width: 100 }}> Add</Button>
-
+                <Link to='/Home'>  <Button sx={{ border: 'solid black', height: 50, width: 100 }}> cancel</Button></Link>
             </Box>
         </Container>
     </div>

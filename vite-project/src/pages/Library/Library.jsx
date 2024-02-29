@@ -103,7 +103,7 @@ export default function Library() {
 
   return <div className='store'>
     <Link to="/Home"><Typography sx={{ display: 'flex', color: 'white' }} >MaveShop</Typography></Link>
-    <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
+    <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Library</FormLabel>
     <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
       <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
