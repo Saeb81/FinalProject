@@ -149,6 +149,9 @@ export default function Sign() {
         if (!error && i >= data.length) {
             const user_id = data.length + 1;
             post('/users', { username, email, password, age,user_id})
+            localStorage.setItem('user_id', user_id);
+            const storedUserId = localStorage.getItem('user_id');
+            console.log(storedUserId)
             navigate('/Home')
         }
 

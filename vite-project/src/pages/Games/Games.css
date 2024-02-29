@@ -1,0 +1,6 @@
+.games
+{
+    display: flex;
+    background-image: url("f.jpg") ;
+    padding: 10%;
+}

@@ -155,12 +155,6 @@ export default function PrimarySearchAppBar() {
   }
 
 
-
-  const loadGame = (event) => {
-    setTitle(event.target.value)
-  }
-
-
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -223,10 +217,6 @@ export default function PrimarySearchAppBar() {
 
 
   const getGames = async () => {
-
-
-
-
     setHeight(50);
 
     if (search != '') {
@@ -341,7 +331,6 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className='home' >
-
       <Search sx={{ backgroundColor: 'darkslategray', height: height, display: 'flex', flexDirection: 'column' }}>
         <SearchIconWrapper>
           <SearchIcon />

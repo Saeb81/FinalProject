@@ -44,6 +44,10 @@ function GameCard({ base64, title, id }) {
     localStorage.setItem('game_id', id);
     navigate('/Games');
   };
+  const handleClick1 = () => {
+    localStorage.setItem('game_id', id);
+    navigate('/Buy');
+  };
   return (
     <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
       <Card sx={{
@@ -63,9 +67,9 @@ function GameCard({ base64, title, id }) {
 
         </CardContent>
         <CardActions>
-        <Link to="/Buy" > <Button size="small">Buy</Button></Link>
-         
-        <Button onClick={handleClick}  size="small">Read More</Button>
+          <Button onClick={handleClick1} size="small">Buy</Button>
+
+          <Button onClick={handleClick} size="small">Read More</Button>
 
         </CardActions>
       </Card>
@@ -102,6 +106,7 @@ export default function Library() {
 
 
   return <div className='store'>
+    <Link to="/Home"><Typography sx={{ display: 'flex', color: 'white' }} >MaveShop</Typography></Link>
     <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
 
     <List sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">

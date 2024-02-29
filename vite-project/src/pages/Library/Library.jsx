@@ -15,8 +15,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardContent, Container ,FormControl, Input, FormLabel} from '@mui/material';
-import {CardMedia} from '@mui/material';
+import { Grid, Card, CardContent, Container, FormControl, Input, FormLabel } from '@mui/material';
+import { CardMedia } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -33,8 +33,8 @@ import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
 import { useNavigate } from 'react-router-dom';
 
-function GameCard({ base64, title,id}) {
- 
+function GameCard({ base64, title, id }) {
+
 
   const navigate = useNavigate();
 
@@ -58,12 +58,12 @@ function GameCard({ base64, title,id}) {
           <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-         
+
         </CardContent>
         <CardActions>
-        <Link to="/Play">  <Button size="small">Play</Button></Link>
-          <Button onClick={handleClick}  size="small">game page</Button>
-         
+          <Link to="/Play">  <Button size="small">Play</Button></Link>
+          <Button onClick={handleClick} size="small">game page</Button>
+
         </CardActions>
       </Card>
     </FormControl>
@@ -78,13 +78,13 @@ export default function Library() {
   const fetchData = async () => {
     try {
       console.log('Front End - user_id:', localStorage.getItem('user_id'));
-  
+
       const data = await get(`/view?userId=${localStorage.getItem('user_id')}`);
       setUserGames(data);
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
-     
+
     }
   };
 
@@ -102,19 +102,19 @@ export default function Library() {
 
 
   return <div className='store'>
-     <FormLabel sx={{display: 'flex', justifyContent : 'center',backgroundColor: 'white'}}> Games List</FormLabel>
+    <Link to="/Home"><Typography sx={{ display: 'flex', color: 'white' }} >MaveShop</Typography></Link>
+    <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
+    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center' }} aria-label="mailbox folders">
+      <ListItem sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-    <List sx={{ display: 'flex', flexDirection: 'row', backgroundColor: 'inherit',justifyContent:'center',alignItems:'center'}} aria-label="mailbox folders">
-      <ListItem sx={{display: 'flex', flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
-       
         {userGames.map((game, index) => (
-        <GameCard
-          key={index}
-          base64={game.image_base64}
-          title={game.title}
-          id = {game.id}
-        />
-      ))}
+          <GameCard
+            key={index}
+            base64={game.image_base64}
+            title={game.title}
+            id={game.id}
+          />
+        ))}
       </ListItem>
 
     </List>

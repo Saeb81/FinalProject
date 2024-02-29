@@ -30,7 +30,7 @@ import { Link } from 'react-router-dom';
 
 import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
-
+import './Games.css';
 
 function Comments({ comment, username, game_id }) {
     console.log(localStorage.getItem('game_id'))
@@ -130,59 +130,63 @@ export default function Profile() {
         await post('/comments', { username, comment, comment_id, user_id, game_id });
     }
 
-    return <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'lavender', justifyContent: 'center', alignItems: 'center', height: 'Auto' }}>
+    return <div className='games'>  <Link to="/Home"><Typography sx={{ display: 'flex', color: 'black' }} >MaveShop</Typography></Link>
+        <Container sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center', height: 'Auto' }}>
 
-        <Card sx={{
-            display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
-            border: 'groove', backgroundColor: 'inherit'
-        }}>
-            <CardMedia
-                sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
-                image={image_base64}
-                title="Game Image"
-                component='img'
-            />
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {title}
+                <Card sx={{
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
+                    border: 'groove', backgroundColor: 'inherit'
+                }}>
+                    <CardMedia
+                        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
+                        image={image_base64}
+                        title="Game Image"
+                        component='img'
+                    />
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            {title}
 
+                        </Typography>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            rate : {rate}/10
+                        </Typography>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            {genre}
+                        </Typography>
+                        <Link to="/Buy" > <Button size="small">Buy</Button></Link>
+                    </CardContent>
+                    <CardActions>
+
+
+                    </CardActions>
+                </Card>
+
+                <Typography sx={{ marginTop: 10 }} variant='h4'>
+                    Description
                 </Typography>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    rate : {rate}/10
+                <Typography color={'#1976d2'} gutterBottom variant="h6" component="div">
+
+                    {description}
                 </Typography>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {genre}
+                <Typography sx={{ display: 'flex', flexDirection: 'row' }}>
+                    <TextField onChange={handleComment} sx={{ width: 500 }} label="Write a Comment">
+                    </TextField>
+                    <Button onClick={handlecomment1}>send</Button>
                 </Typography>
-                <Link to="/Buy" > <Button size="small">Buy</Button></Link>
-            </CardContent>
-            <CardActions>
-
-
-            </CardActions>
-        </Card>
-
-        <Typography sx={{ marginTop: 10 }} variant='h4'>
-            Description
-        </Typography>
-        <Typography color={'#1976d2'} gutterBottom variant="h6" component="div">
-
-            {description}
-        </Typography>
-        <Typography sx={{ display: 'flex', flexDirection: 'row' }}>
-            <TextField onChange={handleComment} sx={{ width: 500 }} label="Write a Comment">
-            </TextField>
-            <Button onClick={handlecomment1}>send</Button>
-        </Typography>
-        <Container sx={{ border: 'solid black', height: 'auto' }}>
-            {data3.slice().reverse().map((comments, index) => (
-                <Comments
-                    key={index}
-                    comment={comments.comment}
-                    username={comments.username}
-                    game_id={comments.game_id}
-                />
-            ))}
+                <Container sx={{ border: 'solid black', height: 'auto' }}>
+                    {data3.slice().reverse().map((comments, index) => (
+                        <Comments
+                            key={index}
+                            comment={comments.comment}
+                            username={comments.username}
+                            game_id={comments.game_id}
+                        />
+                    ))}
+                </Container>
+            </Box>
         </Container>
-    </Box>
+    </div>
 }
 
