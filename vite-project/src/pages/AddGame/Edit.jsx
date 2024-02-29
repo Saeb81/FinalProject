@@ -79,44 +79,48 @@ export default function Profile() {
     }
 
 
-    return <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'lavender', justifyContent: 'center', alignItems: 'center', height: '720px' }}>
+    return <div className='games'>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'inherit', justifyContent: 'center', alignItems: 'center', height: '720px' }}>
 
-        <Card sx={{
-            display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
-            border: 'groove', backgroundColor: 'inherit'
-        }}>
-            <CardMedia
-                sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
-                image={image_base64}
-                title="Game Image"
-                component='img'
-            />
-            <CardContent sx={{display : 'flex', flexDirection : 'column', justifyContent : 'center',alignItems: 'center'}}>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {title}
+                <Card sx={{
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 400,
+                    border: 'groove', backgroundColor: 'inherit'
+                }}>
+                    <CardMedia
+                        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 200, width: 300 }}
+                        image={image_base64}
+                        title="Game Image"
+                        component='img'
+                    />
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            {title}
 
+                        </Typography>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            rate : {rate}/10
+                        </Typography>
+                        <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
+                            {genre}
+                        </Typography>
+
+                    </CardContent>
+                    <CardActions>
+
+
+                    </CardActions>
+                </Card>
+
+                <Typography sx={{ marginTop: 10 }} variant='h4'>
+                    Description
                 </Typography>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    rate : {rate}/10
+                <Typography color={'#1976d2'} gutterBottom variant="h6" component="div">
+
+                    {description}
                 </Typography>
-                <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
-                    {genre}
-                </Typography>
-
-            </CardContent>
-            <CardActions>
-
-
-            </CardActions>
-        </Card>
-
-        <Typography sx={{ marginTop: 10 }} variant='h4'>
-            Description
-        </Typography>
-        <Typography color={'#1976d2'} gutterBottom variant="h6" component="div">
-
-            {description}
-        </Typography>
-    </Box>
+            </Box>
+        </Container>
+    </div>
 }
 

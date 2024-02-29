@@ -99,7 +99,7 @@ export default function Library() {
 
 
   return <div className='store'>
-   
+   <Link to="/Home"><Typography sx={{ display: 'flex', color: 'white' }} >MaveShop</Typography></Link>
     <Button sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'Black' }}>      <Link to="/Add" >   Add Game </Link></Button>
 
     <FormLabel sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}> Games List</FormLabel>
