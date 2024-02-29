@@ -187,9 +187,9 @@ app.get('/comments', async (_, response) => {
 )
 
 app.post('/comments', async (request, response) => {
-  
 
-  const { username, comment, comment_id ,user_id,game_id} = request.body;
+
+  const { username, comment, comment_id, user_id, game_id } = request.body;
   console.log(request.body);
   const comments = await sql`
     INSERT INTO comments (comment_id, user_id, comment, game_id, username)
@@ -200,6 +200,24 @@ app.post('/comments', async (request, response) => {
   response.send(comments);
 });
 
+app.post('/library', async (request, response) => {
+
+
+  try {
+    const { user_id, game_id } = request.body;
+    console.log(request.body);
+    const library = await sql`
+    INSERT INTO library (user_id,game_id)
+    VALUES (${user_id},${game_id})
+    RETURNING user_id, game_id;
+  `;
+
+    response.send(library);
+  }
+  catch (error) {
+    response.status(500).send(error.message);
+  }
+});
 
 
 app.listen(port, () => console.log(`My App listening at http://localhost:${port}`));

@@ -34,7 +34,7 @@ import { get } from '../../utils/httpClient'
 import { post } from '../../utils/httpClient'
 
 import './Profile.css';
-
+const data = await get('/users')
 
 
 export default function Profile() {
@@ -45,14 +45,20 @@ export default function Profile() {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   useEffect(() => {
-    profile
+    profile();
+    console.log("--------------");
+    console.log(userName);
   }, []);
   const profile = async () => {
     let i = 0;
     const data = await get('/users')
+    console.log(data);
+    console.log(localStorage.getItem('user_id') - 1)
+    console.log(data[localStorage.getItem('user_id') - 1].username);
     setUsername(data[localStorage.getItem('user_id') - 1].userName)
     setPassword(data[localStorage.getItem('user_id') - 1].password)
     setEmail(data[localStorage.getItem('user_id') - 1].email)
+    console.log(userName);
   }
 
   const handleAccount = () => {
@@ -98,21 +104,21 @@ export default function Profile() {
             disabled
             id="standard-disabled"
             label="Disabled"
-            defaultValue={userName}
+            defaultValue=  {data[localStorage.getItem('user_id') - 1].username}
             variant="standard"
           />
           <TextField
             disabled
             id="standard-disabled"
             label="Disabled"
-            defaultValue={password}
+            defaultValue={data[localStorage.getItem('user_id') - 1].password}
             variant="standard"
           />
           <TextField
             disabled
             id="standard-disabled"
             label="Disabled"
-            defaultValue={email}
+            defaultValue={data[localStorage.getItem('user_id') - 1].email}
             variant="standard"
           />
 

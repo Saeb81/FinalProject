@@ -122,11 +122,11 @@ export default function Profile() {
 
     const handlecomment1 = async () => {
         const data1 = await get('/comments');
-        const comment_id = data1.length+1;
+        const comment_id = data1.length + 1;
         const user_id = localStorage.getItem('user_id');
-        const username = data4[user_id-1].username
+        const username = data4[user_id - 1].username
         console.log(username);
-        console.log(data1.length+1);
+        console.log(data1.length + 1);
         await post('/comments', { username, comment, comment_id, user_id, game_id });
     }
 
@@ -153,7 +153,7 @@ export default function Profile() {
                 <Typography color={'#1976d2'} gutterBottom variant="h5" component="div">
                     {genre}
                 </Typography>
-
+                <Link to="/Buy" > <Button size="small">Buy</Button></Link>
             </CardContent>
             <CardActions>
 
@@ -173,7 +173,7 @@ export default function Profile() {
             </TextField>
             <Button onClick={handlecomment1}>send</Button>
         </Typography>
-        <Container sx={{ border: 'solid black', height: 'auto'}}>
+        <Container sx={{ border: 'solid black', height: 'auto' }}>
             {data3.slice().reverse().map((comments, index) => (
                 <Comments
                     key={index}

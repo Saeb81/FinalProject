@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { blue } from '@mui/material/colors';
-import { Grid, Card, CardMedia, CardContent, Container, FormControl,FormLabel } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Container, FormControl, FormLabel } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -106,19 +106,19 @@ export default function PrimarySearchAppBar() {
 
   const fetchData = async () => {
     try {
-    
-  
+
+
       const data = await get(`/game`);
       setUserGames(data);
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
-     
+
     }
   };
 
   useEffect(() => {
-    
+
     fetchData();
   }, []);
 
@@ -211,15 +211,13 @@ export default function PrimarySearchAppBar() {
   }
 
   const handlegame4 = () => {
-    localStorage.setItem('game_id', data[data.length-1].id);
-
-    navigate('/Games');
+    console.log("-------------")
+    localStorage.setItem('game_id', data[data.length - 1].id);
   }
 
   const handlegame5 = () => {
-    localStorage.setItem('game_id', data[data.length-2].id);
-
-    navigate('/Games');
+    console.log("-------------")
+    localStorage.setItem('game_id', data[data.length - 2].id);
   }
 
 
@@ -430,9 +428,9 @@ export default function PrimarySearchAppBar() {
         {renderMenu}
       </Box>
 
-    
 
-      
+
+
       <FormControl sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400, marginTop: 5 }}>
         <Card sx={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 310, height: 1000,
@@ -440,18 +438,18 @@ export default function PrimarySearchAppBar() {
         }}>
           <CardMedia
             sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
-            image={data[data.length-1].image_base64}
+            image={data[data.length - 1].image_base64}
             title="green iguana"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-            {data[data.length-1].title}
+              {data[data.length - 1].title}
             </Typography>
-    
+
           </CardContent>
           <CardActions>
-          <Link to="/Buy" > <Button size="small">Buy</Button></Link>
-           <Link to = "/Games">  <Button size="small">Read More</Button></Link>
+            <Link to="/Buy" > <Button onClick={handlegame4} size="small">Buy</Button></Link>
+            <Link to="/Games">  <Button onClick={handlegame4} size="small">Read More</Button></Link>
           </CardActions>
         </Card>
       </FormControl>
@@ -462,18 +460,18 @@ export default function PrimarySearchAppBar() {
         }}>
           <CardMedia
             sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '5%', height: 200, width: 300 }}
-            image={data[data.length-2].image_base64}
+            image={data[data.length - 2].image_base64}
             title="green iguana"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-            {data[data.length-2].title}
+              {data[data.length - 2].title}
             </Typography>
-         
+
           </CardContent>
           <CardActions>
-          <Link to="/Buy" > <Button size="small">Buy</Button></Link>
-          <Link to = "/Games">  <Button size="small">Read More</Button></Link>
+            <Link to="/Buy" >   <Button onClick={handlegame5} size="small">Buy</Button></Link>
+            <Link to="/Games">  <Button onClick={handlegame5} size="small">Read More</Button></Link>
           </CardActions>
         </Card>
       </FormControl>

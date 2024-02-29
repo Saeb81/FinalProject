@@ -41,7 +41,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Library() {
 
-
+    const handleBuy = () => {
+        const user_id = localStorage.getItem('user_id');
+        const game_id = localStorage.getItem('game_id')
+        post('/library', { user_id,game_id})
+    }
 
     return <div className='store'>
         <Container sx={{ display: 'flex', flexDirection: 'column', border: 'solid white', padding: 5, height: 500, width: 500 }}>
@@ -49,7 +53,7 @@ export default function Library() {
             <Typography>
                 You ARe Trying To Buy This Game
                 Click Confirm to add it to your library
-                <Typography sx={{display : 'flex',flexDirection : 'column',justifyContent : 'center',alignItems: 'center'}}> 
+                <Typography sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Typography>  -------------------       </Typography>
                     <Typography>  -------------------       </Typography>
                     <Typography>  -------------------       </Typography>
@@ -64,10 +68,10 @@ export default function Library() {
                     <Typography>  -------------------       </Typography>
                     <Typography>  -------------------       </Typography>
                     <Typography>  -------------------       </Typography>
-          
+
                 </Typography>
                 <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Button>Confirm</Button>
+                    <Button onClick={handleBuy}>Confirm</Button>
                 </Typography>
             </Typography>
         </Container>
