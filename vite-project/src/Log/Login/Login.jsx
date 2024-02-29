@@ -102,7 +102,7 @@ export default function Login() {
     const handleLogin = async () => {
 
         const data = await get('/users')
-
+        console.log(data);
         let i = 0;
         while (i < data.length) {
 

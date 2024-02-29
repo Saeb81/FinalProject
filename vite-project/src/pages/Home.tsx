@@ -30,7 +30,7 @@ import { post } from '../utils/httpClient'
 import { useNavigate } from 'react-router-dom';
 
 const data = await get('/game')
-const base64 = data[2].image_base64
+
 
 
 const Search = styled('div')(({ theme }) => ({

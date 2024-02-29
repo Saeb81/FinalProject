@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const rawBody = require('raw-body');
 const multer = require('multer');
-
+require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
@@ -26,7 +26,7 @@ app.use(function (_, res, next) {
   next();
 });
 
-const port = 3000;
+const port = 3001;
 
 // app.js
 const postgres = require('postgres');
@@ -34,11 +34,11 @@ const postgres = require('postgres');
 
 
 const sql = postgres({
-  host: 'ep-young-frog-a5mbncls.us-east-2.aws.neon.tech',
-  database: 'final',
-  username: 'saebsobhi81',
-  password: '8ypxQKd3mtbq',
-  port: 5432,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  username: process.env.USER_NAME,
+  password: process.env.PASSWORD,
+  port: process.env.PORT,
   ssl: 'require',
   connection: {
     options: `project=${'ep-young-frog-a5mbncls'}`,
